@@ -1,0 +1,306 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		290DB76A1786C7030090FA4F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290DB7691786C7030090FA4F /* UIKit.framework */; };
+		290DB76C1786C7030090FA4F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290DB76B1786C7030090FA4F /* Foundation.framework */; };
+		290DB76E1786C7030090FA4F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290DB76D1786C7030090FA4F /* CoreGraphics.framework */; };
+		290DB7741786C7030090FA4F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 290DB7721786C7030090FA4F /* InfoPlist.strings */; };
+		290DB7761786C7030090FA4F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 290DB7751786C7030090FA4F /* main.m */; };
+		290DB77A1786C7030090FA4F /* Bildschneider_AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 290DB7791786C7030090FA4F /* Bildschneider_AppDelegate.m */; };
+		290DB77C1786C7030090FA4F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 290DB77B1786C7030090FA4F /* Default.png */; };
+		290DB77E1786C7030090FA4F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 290DB77D1786C7030090FA4F /* Default@2x.png */; };
+		290DB7801786C7030090FA4F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 290DB77F1786C7030090FA4F /* Default-568h@2x.png */; };
+		290DB7831786C7030090FA4F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 290DB7811786C7030090FA4F /* MainStoryboard.storyboard */; };
+		290DB7861786C7030090FA4F /* Bildschneider_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 290DB7851786C7030090FA4F /* Bildschneider_ViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		290DB7661786C7030090FA4F /* Bildschneider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bildschneider.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		290DB7691786C7030090FA4F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		290DB76B1786C7030090FA4F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		290DB76D1786C7030090FA4F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		290DB7711786C7030090FA4F /* Bildschneider-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Bildschneider-Info.plist"; sourceTree = "<group>"; };
+		290DB7731786C7030090FA4F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		290DB7751786C7030090FA4F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		290DB7771786C7030090FA4F /* Bildschneider-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bildschneider-Prefix.pch"; sourceTree = "<group>"; };
+		290DB7781786C7030090FA4F /* Bildschneider_AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bildschneider_AppDelegate.h; sourceTree = "<group>"; };
+		290DB7791786C7030090FA4F /* Bildschneider_AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Bildschneider_AppDelegate.m; sourceTree = "<group>"; };
+		290DB77B1786C7030090FA4F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		290DB77D1786C7030090FA4F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		290DB77F1786C7030090FA4F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		290DB7821786C7030090FA4F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		290DB7841786C7030090FA4F /* Bildschneider_ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bildschneider_ViewController.h; sourceTree = "<group>"; };
+		290DB7851786C7030090FA4F /* Bildschneider_ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Bildschneider_ViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		290DB7631786C7030090FA4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				290DB76A1786C7030090FA4F /* UIKit.framework in Frameworks */,
+				290DB76C1786C7030090FA4F /* Foundation.framework in Frameworks */,
+				290DB76E1786C7030090FA4F /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		290DB75D1786C7030090FA4F = {
+			isa = PBXGroup;
+			children = (
+				290DB76F1786C7030090FA4F /* Bildschneider */,
+				290DB7681786C7030090FA4F /* Frameworks */,
+				290DB7671786C7030090FA4F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		290DB7671786C7030090FA4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				290DB7661786C7030090FA4F /* Bildschneider.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		290DB7681786C7030090FA4F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				290DB7691786C7030090FA4F /* UIKit.framework */,
+				290DB76B1786C7030090FA4F /* Foundation.framework */,
+				290DB76D1786C7030090FA4F /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		290DB76F1786C7030090FA4F /* Bildschneider */ = {
+			isa = PBXGroup;
+			children = (
+				290DB7781786C7030090FA4F /* Bildschneider_AppDelegate.h */,
+				290DB7791786C7030090FA4F /* Bildschneider_AppDelegate.m */,
+				290DB7811786C7030090FA4F /* MainStoryboard.storyboard */,
+				290DB7841786C7030090FA4F /* Bildschneider_ViewController.h */,
+				290DB7851786C7030090FA4F /* Bildschneider_ViewController.m */,
+				290DB7701786C7030090FA4F /* Supporting Files */,
+			);
+			path = Bildschneider;
+			sourceTree = "<group>";
+		};
+		290DB7701786C7030090FA4F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				290DB7711786C7030090FA4F /* Bildschneider-Info.plist */,
+				290DB7721786C7030090FA4F /* InfoPlist.strings */,
+				290DB7751786C7030090FA4F /* main.m */,
+				290DB7771786C7030090FA4F /* Bildschneider-Prefix.pch */,
+				290DB77B1786C7030090FA4F /* Default.png */,
+				290DB77D1786C7030090FA4F /* Default@2x.png */,
+				290DB77F1786C7030090FA4F /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		290DB7651786C7030090FA4F /* Bildschneider */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 290DB7891786C7030090FA4F /* Build configuration list for PBXNativeTarget "Bildschneider" */;
+			buildPhases = (
+				290DB7621786C7030090FA4F /* Sources */,
+				290DB7631786C7030090FA4F /* Frameworks */,
+				290DB7641786C7030090FA4F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Bildschneider;
+			productName = Bildschneider;
+			productReference = 290DB7661786C7030090FA4F /* Bildschneider.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		290DB75E1786C7030090FA4F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = Bildschneider_;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Jia Daizi";
+			};
+			buildConfigurationList = 290DB7611786C7030090FA4F /* Build configuration list for PBXProject "Bildschneider" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 290DB75D1786C7030090FA4F;
+			productRefGroup = 290DB7671786C7030090FA4F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				290DB7651786C7030090FA4F /* Bildschneider */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		290DB7641786C7030090FA4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				290DB7741786C7030090FA4F /* InfoPlist.strings in Resources */,
+				290DB77C1786C7030090FA4F /* Default.png in Resources */,
+				290DB77E1786C7030090FA4F /* Default@2x.png in Resources */,
+				290DB7801786C7030090FA4F /* Default-568h@2x.png in Resources */,
+				290DB7831786C7030090FA4F /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		290DB7621786C7030090FA4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				290DB7761786C7030090FA4F /* main.m in Sources */,
+				290DB77A1786C7030090FA4F /* Bildschneider_AppDelegate.m in Sources */,
+				290DB7861786C7030090FA4F /* Bildschneider_ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		290DB7721786C7030090FA4F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				290DB7731786C7030090FA4F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		290DB7811786C7030090FA4F /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				290DB7821786C7030090FA4F /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		290DB7871786C7030090FA4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		290DB7881786C7030090FA4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		290DB78A1786C7030090FA4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Bildschneider/Bildschneider-Prefix.pch";
+				INFOPLIST_FILE = "Bildschneider/Bildschneider-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		290DB78B1786C7030090FA4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Bildschneider/Bildschneider-Prefix.pch";
+				INFOPLIST_FILE = "Bildschneider/Bildschneider-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		290DB7611786C7030090FA4F /* Build configuration list for PBXProject "Bildschneider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				290DB7871786C7030090FA4F /* Debug */,
+				290DB7881786C7030090FA4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		290DB7891786C7030090FA4F /* Build configuration list for PBXNativeTarget "Bildschneider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				290DB78A1786C7030090FA4F /* Debug */,
+				290DB78B1786C7030090FA4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 290DB75E1786C7030090FA4F /* Project object */;
+}
