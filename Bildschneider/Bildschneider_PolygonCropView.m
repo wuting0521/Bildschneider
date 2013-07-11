@@ -26,9 +26,8 @@
 
 - (id)initWithImageView:(UIImageView *)imageView
 {
-    self = [super initWithFrame:imageView.frame];
+    self = [super initWithFrame:CGRectMake(36, 44, imageView.frame.size.width, imageView.frame.size.height)];
     if (self) {
-        
         self.backgroundColor = [UIColor clearColor];
         self.pointColor      = [UIColor blueColor];
         self.lineColor       = [UIColor yellowColor];
@@ -69,7 +68,7 @@
         pointsPerSide = (num-4) /4.0;
     
     // Corner 1
-    UIView *point = [self getPointView:pointsAdded at:CGPointMake(20, 64)];
+    UIView *point = [self getPointView:pointsAdded at:CGPointMake(20, 20)];
     [tmp addObject:point];
     [self addSubview:point];
     pointsAdded ++;
@@ -83,7 +82,7 @@
     {
         float x = ((self.frame.size.width -40) / ((int)pointsPerSide +1)) * (i+1);
         
-        point = [self getPointView:pointsAdded at:CGPointMake(x +20, 64)];
+        point = [self getPointView:pointsAdded at:CGPointMake(x +20, 20)];
         [tmp addObject:point];
         [self addSubview:point];
         pointsAdded ++;
@@ -94,7 +93,7 @@
         pointsPerSide --;
     
     // Corner 2
-    point = [self getPointView:pointsAdded at:CGPointMake(self.frame.size.width -20, 64)];
+    point = [self getPointView:pointsAdded at:CGPointMake(self.frame.size.width -20, 20)];
     [tmp addObject:point];
     [self addSubview:point];
     pointsAdded ++;

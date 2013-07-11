@@ -18,6 +18,9 @@
 		290DB7801786C7030090FA4F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 290DB77F1786C7030090FA4F /* Default-568h@2x.png */; };
 		290DB7831786C7030090FA4F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 290DB7811786C7030090FA4F /* MainStoryboard.storyboard */; };
 		290DB7861786C7030090FA4F /* Bildschneider_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 290DB7851786C7030090FA4F /* Bildschneider_ViewController.m */; };
+		29924623178DA54B003A3D1D /* Bildschneider_RectangleCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29924622178DA54B003A3D1D /* Bildschneider_RectangleCropView.m */; };
+		29924625178DA617003A3D1D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29924624178DA617003A3D1D /* QuartzCore.framework */; };
+		29924628178DA670003A3D1D /* Bildschneider_PolygonCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29924627178DA670003A3D1D /* Bildschneider_PolygonCropView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +40,11 @@
 		290DB7821786C7030090FA4F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		290DB7841786C7030090FA4F /* Bildschneider_ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bildschneider_ViewController.h; sourceTree = "<group>"; };
 		290DB7851786C7030090FA4F /* Bildschneider_ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Bildschneider_ViewController.m; sourceTree = "<group>"; };
+		29924621178DA54B003A3D1D /* Bildschneider_RectangleCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bildschneider_RectangleCropView.h; sourceTree = "<group>"; };
+		29924622178DA54B003A3D1D /* Bildschneider_RectangleCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bildschneider_RectangleCropView.m; sourceTree = "<group>"; };
+		29924624178DA617003A3D1D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		29924626178DA670003A3D1D /* Bildschneider_PolygonCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bildschneider_PolygonCropView.h; sourceTree = "<group>"; };
+		29924627178DA670003A3D1D /* Bildschneider_PolygonCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bildschneider_PolygonCropView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29924625178DA617003A3D1D /* QuartzCore.framework in Frameworks */,
 				290DB76A1786C7030090FA4F /* UIKit.framework in Frameworks */,
 				290DB76C1786C7030090FA4F /* Foundation.framework in Frameworks */,
 				290DB76E1786C7030090FA4F /* CoreGraphics.framework in Frameworks */,
@@ -73,6 +82,7 @@
 		290DB7681786C7030090FA4F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				29924624178DA617003A3D1D /* QuartzCore.framework */,
 				290DB7691786C7030090FA4F /* UIKit.framework */,
 				290DB76B1786C7030090FA4F /* Foundation.framework */,
 				290DB76D1786C7030090FA4F /* CoreGraphics.framework */,
@@ -83,6 +93,7 @@
 		290DB76F1786C7030090FA4F /* Bildschneider */ = {
 			isa = PBXGroup;
 			children = (
+				29924620178DA516003A3D1D /* CropView */,
 				290DB7781786C7030090FA4F /* Bildschneider_AppDelegate.h */,
 				290DB7791786C7030090FA4F /* Bildschneider_AppDelegate.m */,
 				290DB7811786C7030090FA4F /* MainStoryboard.storyboard */,
@@ -105,6 +116,17 @@
 				290DB77F1786C7030090FA4F /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		29924620178DA516003A3D1D /* CropView */ = {
+			isa = PBXGroup;
+			children = (
+				29924621178DA54B003A3D1D /* Bildschneider_RectangleCropView.h */,
+				29924622178DA54B003A3D1D /* Bildschneider_RectangleCropView.m */,
+				29924626178DA670003A3D1D /* Bildschneider_PolygonCropView.h */,
+				29924627178DA670003A3D1D /* Bildschneider_PolygonCropView.m */,
+			);
+			name = CropView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +199,8 @@
 				290DB7761786C7030090FA4F /* main.m in Sources */,
 				290DB77A1786C7030090FA4F /* Bildschneider_AppDelegate.m in Sources */,
 				290DB7861786C7030090FA4F /* Bildschneider_ViewController.m in Sources */,
+				29924623178DA54B003A3D1D /* Bildschneider_RectangleCropView.m in Sources */,
+				29924628178DA670003A3D1D /* Bildschneider_PolygonCropView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +323,7 @@
 				290DB78B1786C7030090FA4F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

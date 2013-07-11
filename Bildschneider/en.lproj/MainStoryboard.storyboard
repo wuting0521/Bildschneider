@@ -25,6 +25,11 @@
                                                 <action selector="importFromLibrary:" destination="2" id="12M-51-g9Q"/>
                                             </connections>
                                         </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Save" id="OSV-cw-uns">
+                                            <connections>
+                                                <action selector="saveCropedImage:" destination="2" id="fU0-M6-viO"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -69,7 +74,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-396" y="134"/>
+            <point key="canvasLocation" x="-668" y="147"/>
         </scene>
     </scenes>
     <classes>
@@ -79,7 +84,6 @@
                 <relationship kind="action" name="cancelCrop:"/>
                 <relationship kind="action" name="cropShapeSelection:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="action" name="finishCrop:" candidateClass="UIBarButtonItem"/>
-                <relationship kind="action" name="importFromLibrary:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="imagePreview" candidateClass="UIImageView"/>
             </relationships>
         </class>

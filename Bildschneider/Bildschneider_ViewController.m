@@ -12,7 +12,7 @@
 @interface Bildschneider_ViewController ()  {
     UIImageView *b;
 }
-@property (weak, nonatomic) IBOutlet UIImageView *imagePreview;
+@property (nonatomic) IBOutlet UIImageView *imagePreview;
 @property (nonatomic) UIActionSheet *actionSheet;
 @property (nonatomic) UIImage *imageToUse;
 @property (strong, nonatomic) Bildschneider_PolygonCropView *polygonPointsView;
@@ -39,6 +39,10 @@
 
 - (IBAction)cancelCrop:(id)sender {
     self.imagePreview.image = self.imageToUse;
+}
+
+- (IBAction)saveCropedImage:(UIBarButtonItem *)sender {
+    //to be continued...
 }
 
 //resize image to fit the imageVIew
@@ -74,6 +78,8 @@
             self.polygonPointsView = [[Bildschneider_PolygonCropView alloc] initWithImageView:self.imagePreview];
             [self.polygonPointsView addPoints:8];
             [self.view addSubview:self.polygonPointsView];
+            //NSLog(@"PolygonCropViewSize: %f * %f", self.polygonPointsView.frame.size.width, self.polygonPointsView.frame.size.height);
+            NSLog(@"PolygonCropViewLocation: (%f, %f)", self.polygonPointsView.frame.origin.x, self.polygonPointsView.frame.origin.y);
 
         case 2:
             //cancel
@@ -115,7 +121,7 @@
         self.imageToUse = [self resizeImage:self.imageToUse width:248 height:372];
         self.imagePreview.image = self.imageToUse;
         self.imagePreview.contentMode = UIViewContentModeScaleAspectFit;
-    }
+}
     
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
