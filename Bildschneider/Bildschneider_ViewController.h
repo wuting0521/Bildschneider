@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Bildschneider_ViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface Bildschneider_ViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
-@property (weak, nonatomic) IBOutlet UIImageView *imagePreview;
 @end

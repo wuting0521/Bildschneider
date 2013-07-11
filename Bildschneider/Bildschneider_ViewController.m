@@ -7,29 +7,89 @@
 //
 
 #import "Bildschneider_ViewController.h"
+#import "Bildschneider_PolygonCropView.h"
 
-@interface Bildschneider_ViewController ()
-
+@interface Bildschneider_ViewController ()  {
+    UIImageView *b;
+}
+@property (weak, nonatomic) IBOutlet UIImageView *imagePreview;
+@property (nonatomic) UIActionSheet *actionSheet;
+@property (nonatomic) UIImage *imageToUse;
+@property (strong, nonatomic) Bildschneider_PolygonCropView *polygonPointsView;
 @end
 
 @implementation Bildschneider_ViewController
 @synthesize imagePreview = _imagePreview;
+@synthesize actionSheet = _actionSheet;
+@synthesize imageToUse = _imageToUse;
 
-- (IBAction)accessToPhotoLibrary:(UIButton *)sender {
+- (IBAction)importFromLibrary:(UIBarButtonItem *)sender {
     [self startMediaBrowserFromViewController:self usingDelegate:self];
 }
-
-- (IBAction)cropImageSelection:(UIButton *)sender {
+- (IBAction)cropShapeSelection:(UIBarButtonItem *)sender {
+    self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Shape" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Rectangle", @"Polygon", @"Cancel", nil];
+    self.actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
+    self.actionSheet.destructiveButtonIndex = 2;
+    [self.actionSheet showInView:self.view];
 }
 
+- (IBAction)finishCrop:(UIBarButtonItem *)sender {
+    self.imagePreview.image = [self.polygonPointsView deleteBackgroundOfImage:self.imagePreview];
+}
+
+- (IBAction)cancelCrop:(id)sender {
+    self.imagePreview.image = self.imageToUse;
+}
+
+//resize image to fit the imageVIew
+- (UIImage *)resizeImage:(UIImage *)image width:(int)width height:(int)height {
+    CGImageRef imageRef = [image CGImage];
+    CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef);
+    
+    alphaInfo = kCGImageAlphaNoneSkipLast;
+    
+    CGContextRef bitmap = CGBitmapContextCreate(NULL, width, height, CGImageGetBitsPerComponent(imageRef),
+                                                4 * width, CGImageGetColorSpace(imageRef), alphaInfo);
+    CGContextDrawImage(bitmap, CGRectMake(0, 0, width, height), imageRef);
+    CGImageRef ref = CGBitmapContextCreateImage(bitmap);
+    UIImage *result = [UIImage imageWithCGImage:ref];
+    
+    CGContextRelease(bitmap);
+    CGImageRelease(ref);
+    
+    return result;
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
+    switch (buttonIndex) {
+        case 0:
+            //rectangle
+            self.imagePreview.image = self.imageToUse;
+            break;
+        case 1:
+            //polygon
+            self.imagePreview.image = self.imageToUse;
+            self.imagePreview.frame = [Bildschneider_PolygonCropView scaleRespectAspectFromRect1:CGRectMake(0, 0, self.imagePreview.image.size.width, self.imagePreview.image.size.height) toRect2:self.imagePreview.frame];
+            self.polygonPointsView = [[Bildschneider_PolygonCropView alloc] initWithImageView:self.imagePreview];
+            [self.polygonPointsView addPoints:8];
+            [self.view addSubview:self.polygonPointsView];
+
+        case 2:
+            //cancel
+            break;
+        default:
+            break;
+    }
+}
 
 - (BOOL) startMediaBrowserFromViewController: (UIViewController *) controller usingDelegate: (id<UIImagePickerControllerDelegate, UINavigationControllerDelegate>) delegate {
+    
     if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO) || (delegate == nil)
          || (controller == nil)) return NO;
     
     UIImagePickerController *mediaUI = [[UIImagePickerController alloc] init];
     mediaUI.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-    
     mediaUI.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeSavedPhotosAlbum];
     mediaUI.allowsEditing = NO;
     mediaUI.delegate = delegate;
@@ -40,30 +100,22 @@
 }
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    //NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-    //NSLog(@"%@", [info objectForKey:UIImagePickerControllerMediaType]);
-    UIImage *originalImage, *editedImage, *imageToUse;
+    
+    UIImage *originalImage, *editedImage;
     if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:@"public.image"]) {
         editedImage = (UIImage *) [info objectForKey:UIImagePickerControllerEditedImage];
         originalImage = (UIImage *) [info objectForKey:UIImagePickerControllerOriginalImage];
         
         if (editedImage) {
-            imageToUse = editedImage;
+            self.imageToUse = editedImage;
         } else {
-            imageToUse = originalImage;
+            self.imageToUse = originalImage;
         }
         
-        //NSLog(@"%@", imageToUse.description);
-        
-        //Do something with imageToUse
-        self.imagePreview.image = imageToUse;
+        self.imageToUse = [self resizeImage:self.imageToUse width:248 height:372];
+        self.imagePreview.image = self.imageToUse;
         self.imagePreview.contentMode = UIViewContentModeScaleAspectFit;
     }
-    
-    //if (CFStringCompare((CFStringRef) mediaType, kUTTypeMovie, 0) == kCFCompareEqualTo) {
-    //  NSString *moviePath = [[info objectForKey: UIImagePickerControllerMediaURL] path];
-    //  Do something with the picked movie
-    //}
     
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
