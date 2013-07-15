@@ -8,6 +8,8 @@
 
 #import "Bildschneider_ViewController.h"
 #import "Bildschneider_PolygonCropView.h"
+#import "Bildschneider_RectangleCropView.h"
+#import "Toast+UIView.h"
 
 @interface Bildschneider_ViewController ()  {
     UIImageView *b;
@@ -15,7 +17,8 @@
 @property (nonatomic) IBOutlet UIImageView *imagePreview;
 @property (nonatomic) UIActionSheet *actionSheet;
 @property (nonatomic) UIImage *imageToUse;
-@property (strong, nonatomic) Bildschneider_PolygonCropView *polygonPointsView;
+@property (strong, nonatomic) Bildschneider_PolygonCropView *polygonCropView;
+@property (strong, nonatomic) Bildschneider_RectangleCropView *rectangleCropView;
 @end
 
 @implementation Bildschneider_ViewController
@@ -26,6 +29,7 @@
 - (IBAction)importFromLibrary:(UIBarButtonItem *)sender {
     [self startMediaBrowserFromViewController:self usingDelegate:self];
 }
+
 - (IBAction)cropShapeSelection:(UIBarButtonItem *)sender {
     self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Shape" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Rectangle", @"Polygon", @"Cancel", nil];
     self.actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
@@ -34,19 +38,29 @@
 }
 
 - (IBAction)finishCrop:(UIBarButtonItem *)sender {
-    self.imagePreview.image = [self.polygonPointsView deleteBackgroundOfImage:self.imagePreview];
+    if (self.polygonCropView) {
+        self.imagePreview.image = [self.polygonCropView deleteBackgroundOfImage:self.imagePreview];
+    }
+    if (self.rectangleCropView) {
+        self.imagePreview.image = [self.rectangleCropView deleteBackgroundOfImage:self.imagePreview];
+    }
 }
 
 - (IBAction)cancelCrop:(id)sender {
+    if (self.polygonCropView) {
+        [self.polygonCropView removeFromSuperview];
+    }
+    if (self.rectangleCropView) {
+        [self.rectangleCropView removeFromSuperview];
+    }
     self.imagePreview.image = self.imageToUse;
 }
 
 - (IBAction)saveCropedImage:(UIBarButtonItem *)sender {
-    //to be continued...
+
     if (self.imagePreview.image) {
         UIImageWriteToSavedPhotosAlbum(self.imagePreview.image, NULL, NULL, NULL);
-        UIAlertView *dialog = [[UIAlertView alloc] initWithTitle:@"Image saved." message:NULL delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [dialog show];
+        [self.view makeToast:@"Image saved."];
     }
 }
 
@@ -75,17 +89,23 @@
         case 0:
             //rectangle
             self.imagePreview.image = self.imageToUse;
+            self.rectangleCropView = [[Bildschneider_RectangleCropView alloc] initWithImageView:self.imagePreview];
+            if (self.polygonCropView) {
+                [self.polygonCropView removeFromSuperview];
+            }
+            
+            [self.view addSubview:self.rectangleCropView];
             break;
         case 1:
             //polygon
             self.imagePreview.image = self.imageToUse;
-            self.imagePreview.frame = [Bildschneider_PolygonCropView scaleRespectAspectFromRect1:CGRectMake(0, 0, self.imagePreview.image.size.width, self.imagePreview.image.size.height) toRect2:self.imagePreview.frame];
-            self.polygonPointsView = [[Bildschneider_PolygonCropView alloc] initWithImageView:self.imagePreview];
-            [self.polygonPointsView addPoints:8];
-            [self.view addSubview:self.polygonPointsView];
-            //NSLog(@"PolygonCropViewSize: %f * %f", self.polygonPointsView.frame.size.width, self.polygonPointsView.frame.size.height);
-            NSLog(@"PolygonCropViewLocation: (%f, %f)", self.polygonPointsView.frame.origin.x, self.polygonPointsView.frame.origin.y);
-
+            self.polygonCropView = [[Bildschneider_PolygonCropView alloc] initWithImageView:self.imagePreview];
+            if (self.rectangleCropView) {
+                [self.rectangleCropView removeFromSuperview];
+            }
+            
+            [self.view addSubview:self.polygonCropView];
+            break;
         case 2:
             //cancel
             break;

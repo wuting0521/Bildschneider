@@ -26,7 +26,7 @@
 
 - (id)initWithImageView:(UIImageView *)imageView
 {
-    self = [super initWithFrame:CGRectMake(36, 44, imageView.frame.size.width, imageView.frame.size.height)];
+    self = [super initWithFrame:imageView.frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         self.pointColor      = [UIColor blueColor];
@@ -34,6 +34,7 @@
         self.clipsToBounds   = YES;
         
         [self addPointsAt:nil];
+        [self addPoints];
     }
     return self;
 }
@@ -55,8 +56,9 @@
     self.points = tmp;
 }
 
-- (void)addPoints:(int)num
+- (void)addPoints
 {
+    int num = 8;
     if (num <= 0) return;
     
     NSMutableArray *tmp = [NSMutableArray array];
