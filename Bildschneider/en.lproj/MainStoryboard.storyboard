@@ -41,15 +41,15 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="MNH-CR-AAf"/>
-                                    <barButtonItem title="Done" id="ins-3z-A6S">
+                                    <barButtonItem systemItem="undo" id="gOL-b5-YOJ">
                                         <connections>
-                                            <action selector="finishCrop:" destination="2" id="0U4-Gf-Ghu"/>
+                                            <action selector="cancelCrop:" destination="2" id="7Wc-aZ-Qpu"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="3hZ-wB-xMw"/>
-                                    <barButtonItem title="Undo" id="gOL-b5-YOJ">
+                                    <barButtonItem systemItem="done" id="ins-3z-A6S">
                                         <connections>
-                                            <action selector="cancelCrop:" destination="2" id="7Wc-aZ-Qpu"/>
+                                            <action selector="finishCrop:" destination="2" id="0U4-Gf-Ghu"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -84,6 +84,8 @@
                 <relationship kind="action" name="cancelCrop:"/>
                 <relationship kind="action" name="cropShapeSelection:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="action" name="finishCrop:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="importFromLibrary:" candidateClass="UIBarButtonItem"/>
+                <relationship kind="action" name="saveCropedImage:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="imagePreview" candidateClass="UIImageView"/>
             </relationships>
         </class>

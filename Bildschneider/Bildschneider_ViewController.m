@@ -43,6 +43,11 @@
 
 - (IBAction)saveCropedImage:(UIBarButtonItem *)sender {
     //to be continued...
+    if (self.imagePreview.image) {
+        UIImageWriteToSavedPhotosAlbum(self.imagePreview.image, NULL, NULL, NULL);
+        UIAlertView *dialog = [[UIAlertView alloc] initWithTitle:@"Image saved." message:NULL delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [dialog show];
+    }
 }
 
 //resize image to fit the imageVIew
