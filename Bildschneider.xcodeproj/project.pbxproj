@@ -24,6 +24,8 @@
 		29924623178DA54B003A3D1D /* Bildschneider_RectangleCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29924622178DA54B003A3D1D /* Bildschneider_RectangleCropView.m */; };
 		29924625178DA617003A3D1D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29924624178DA617003A3D1D /* QuartzCore.framework */; };
 		29924628178DA670003A3D1D /* Bildschneider_PolygonCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29924627178DA670003A3D1D /* Bildschneider_PolygonCropView.m */; };
+		29E7D70518A76F9A00C113BA /* UIImageView+LBBlurredImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E7D70418A76F9A00C113BA /* UIImageView+LBBlurredImage.m */; };
+		29E7D70718A7737F00C113BA /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29E7D70618A7737F00C113BA /* CoreImage.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,9 @@
 		29924624178DA617003A3D1D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		29924626178DA670003A3D1D /* Bildschneider_PolygonCropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bildschneider_PolygonCropView.h; sourceTree = "<group>"; };
 		29924627178DA670003A3D1D /* Bildschneider_PolygonCropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bildschneider_PolygonCropView.m; sourceTree = "<group>"; };
+		29E7D70318A76F9A00C113BA /* UIImageView+LBBlurredImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+LBBlurredImage.h"; path = "../UIImageView+LBBlurredImage.h"; sourceTree = "<group>"; };
+		29E7D70418A76F9A00C113BA /* UIImageView+LBBlurredImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+LBBlurredImage.m"; path = "../UIImageView+LBBlurredImage.m"; sourceTree = "<group>"; };
+		29E7D70618A7737F00C113BA /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29E7D70718A7737F00C113BA /* CoreImage.framework in Frameworks */,
 				29924625178DA617003A3D1D /* QuartzCore.framework in Frameworks */,
 				290DB76A1786C7030090FA4F /* UIKit.framework in Frameworks */,
 				290DB76C1786C7030090FA4F /* Foundation.framework in Frameworks */,
@@ -89,6 +95,7 @@
 		290DB7681786C7030090FA4F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				29E7D70618A7737F00C113BA /* CoreImage.framework */,
 				29924624178DA617003A3D1D /* QuartzCore.framework */,
 				290DB7691786C7030090FA4F /* UIKit.framework */,
 				290DB76B1786C7030090FA4F /* Foundation.framework */,
@@ -100,6 +107,8 @@
 		290DB76F1786C7030090FA4F /* Bildschneider */ = {
 			isa = PBXGroup;
 			children = (
+				29E7D70318A76F9A00C113BA /* UIImageView+LBBlurredImage.h */,
+				29E7D70418A76F9A00C113BA /* UIImageView+LBBlurredImage.m */,
 				295657461793B27D0005AC55 /* Toast */,
 				29924620178DA516003A3D1D /* CropView */,
 				290DB7781786C7030090FA4F /* Bildschneider_AppDelegate.h */,
@@ -221,6 +230,7 @@
 				290DB77A1786C7030090FA4F /* Bildschneider_AppDelegate.m in Sources */,
 				290DB7861786C7030090FA4F /* Bildschneider_ViewController.m in Sources */,
 				29924623178DA54B003A3D1D /* Bildschneider_RectangleCropView.m in Sources */,
+				29E7D70518A76F9A00C113BA /* UIImageView+LBBlurredImage.m in Sources */,
 				29924628178DA670003A3D1D /* Bildschneider_PolygonCropView.m in Sources */,
 				295657491793B27D0005AC55 /* Toast+UIView.m in Sources */,
 			);
@@ -310,7 +320,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bildschneider/Bildschneider-Prefix.pch";
 				INFOPLIST_FILE = "Bildschneider/Bildschneider-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -321,7 +333,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bildschneider/Bildschneider-Prefix.pch";
 				INFOPLIST_FILE = "Bildschneider/Bildschneider-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

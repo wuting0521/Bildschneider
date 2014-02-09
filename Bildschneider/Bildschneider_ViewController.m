@@ -10,6 +10,7 @@
 #import "Bildschneider_PolygonCropView.h"
 #import "Bildschneider_RectangleCropView.h"
 #import "Toast+UIView.h"
+#import "UIImageView+LBBlurredImage.h"
 
 @interface Bildschneider_ViewController ()  {
     UIImageView *b;
@@ -61,6 +62,14 @@
     if (self.imagePreview.image) {
         UIImageWriteToSavedPhotosAlbum(self.imagePreview.image, NULL, NULL, NULL);
         [self.view makeToast:@"Image saved."];
+    }
+}
+
+- (IBAction)blurImage:(UIBarButtonItem *)sender {
+    if (self.imagePreview.image) {
+        [self.imagePreview setImageToBlur:self.imagePreview.image blurRadius:10 completionBlock:^(NSError *error) {
+            NSLog(@"The blurred image has been setted");
+        }];
     }
 }
 
