@@ -22,10 +22,10 @@
                                     <constraint firstAttribute="width" constant="248" id="ilU-qI-Tir"/>
                                 </constraints>
                             </imageView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NbC-b3-XKl">
+                            <navigationBar contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="NbC-b3-XKl">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="Image Croper" id="qte-gc-DBb">
+                                    <navigationItem title="Croper" id="qte-gc-DBb">
                                         <barButtonItem key="leftBarButtonItem" title="Import" id="QH4-91-TYv">
                                             <connections>
                                                 <action selector="importFromLibrary:" destination="2" id="12M-51-g9Q"/>
@@ -39,7 +39,7 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QuD-Ic-lzE">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackTranslucent" translatesAutoresizingMaskIntoConstraints="NO" id="QuD-Ic-lzE">
                                 <rect key="frame" x="0.0" y="436" width="320" height="44"/>
                                 <items>
                                     <barButtonItem title="Crop" id="44C-QJ-epf">
