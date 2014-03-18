@@ -24,6 +24,7 @@
 
 @implementation Bildschneider_ViewController
 @synthesize imagePreview = _imagePreview;
+@synthesize blurSlider = _blurSlider;
 @synthesize actionSheet = _actionSheet;
 @synthesize imageToUse = _imageToUse;
 
@@ -39,12 +40,17 @@
 }
 
 - (IBAction)finishCrop:(UIBarButtonItem *)sender {
+
     if (self.polygonCropView) {
         self.imagePreview.image = [self.polygonCropView deleteBackgroundOfImage:self.imagePreview];
     }
     if (self.rectangleCropView) {
         self.imagePreview.image = [self.rectangleCropView deleteBackgroundOfImage:self.imagePreview];
     }
+    
+    
+    self.blurSlider.hidden = YES;
+    [self.blurSlider resignFirstResponder];
 }
 
 - (IBAction)cancelCrop:(id)sender {
@@ -55,6 +61,13 @@
         [self.rectangleCropView removeFromSuperview];
     }
     self.imagePreview.image = self.imageToUse;
+    if (self.imagePreview.image) {
+        [self.imagePreview setImageToBlur:self.imagePreview.image blurRadius:0 completionBlock:^(NSError *error) {
+            
+        }];
+    }
+    
+    [self.blurSlider resignFirstResponder];
 }
 
 - (IBAction)saveCropedImage:(UIBarButtonItem *)sender {
@@ -66,12 +79,26 @@
 }
 
 - (IBAction)blurImage:(UIBarButtonItem *)sender {
+    self.blurSlider.hidden = NO;
+    [self.blurSlider setValue:5 animated:YES];
     if (self.imagePreview.image) {
-        [self.imagePreview setImageToBlur:self.imagePreview.image blurRadius:10 completionBlock:^(NSError *error) {
-            NSLog(@"The blurred image has been setted");
+        [self.imagePreview setImageToBlur:self.imagePreview.image blurRadius:self.blurSlider.value completionBlock:^(NSError *error) {
         }];
     }
 }
+
+- (IBAction)blurImageSlideWithSlider:(UISlider *)sender {
+    
+    self.imagePreview.image = self.imageToUse;
+    
+    if (self.imagePreview.image) {
+        [self.imagePreview setImageToBlur:self.imagePreview.image blurRadius:sender.value completionBlock:^(NSError *error) {
+            NSLog(@"Radius:%f", sender.value);
+        }];
+    }
+
+}
+
 
 //resize image to fit the imageVIew
 - (UIImage *)resizeImage:(UIImage *)image width:(int)width height:(int)height {
@@ -165,6 +192,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    self.blurSlider.hidden = YES;
+    self.blurSlider.value = 0;
 }
 
 - (void)didReceiveMemoryWarning
