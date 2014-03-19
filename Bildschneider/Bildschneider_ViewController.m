@@ -230,9 +230,10 @@
 {
     [super viewDidLoad];
     
+    //image view
     UIImage *defaultBG = [UIImage imageNamed:@"bg"];
     self.imageToUse = defaultBG;
-
+    
     self.imagePreview = [[UIImageView alloc] initWithFrame:[self resizePreviewFrameWithImage:self.imageToUse]];
     self.imagePreview.image = self.imageToUse;
     self.imagePreview.contentMode = UIViewContentModeScaleAspectFit;
@@ -243,6 +244,7 @@
     
     CGRect screenFrame = [UIScreen mainScreen].bounds;
     
+    //buttons 
     CGRect firstButton = CGRectMake(inset, screenFrame.size.height - inset - buttonHeight, buttonHeight, buttonHeight);
     CGRect secondButton = CGRectMake(firstButton.origin.x + buttonHeight + inset, firstButton.origin.y, buttonHeight, buttonHeight);
     CGRect thirdButton = CGRectMake(secondButton.origin.x + buttonHeight + inset, firstButton.origin.y, buttonHeight, buttonHeight);
