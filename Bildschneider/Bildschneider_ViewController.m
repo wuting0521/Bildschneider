@@ -15,7 +15,7 @@
 @interface Bildschneider_ViewController ()  {
     UIImageView *b;
 }
-@property (nonatomic) IBOutlet UIImageView *imagePreview;
+@property (nonatomic) UIImageView *imagePreview;
 @property (nonatomic) UIActionSheet *actionSheet;
 @property (nonatomic) UIImage *imageToUse;
 @property (strong, nonatomic) Bildschneider_PolygonCropView *polygonCropView;
@@ -61,6 +61,7 @@
         [self.rectangleCropView removeFromSuperview];
     }
     self.imagePreview.image = self.imageToUse;
+    
     if (self.imagePreview.image) {
         [self.imagePreview setImageToBlur:self.imagePreview.image blurRadius:0 completionBlock:^(NSError *error) {
             
@@ -101,6 +102,7 @@
 
 
 //resize image to fit the imageVIew
+/*
 - (UIImage *)resizeImage:(UIImage *)image width:(int)width height:(int)height {
     CGImageRef imageRef = [image CGImage];
     CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef);
@@ -118,6 +120,7 @@
     
     return result;
 }
+ */
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
@@ -179,7 +182,7 @@
             self.imageToUse = originalImage;
         }
         
-        self.imageToUse = [self resizeImage:self.imageToUse width:248 height:372];
+        self.imagePreview.bounds = [self resizePreviewFrameWithImage:self.imageToUse];
         self.imagePreview.image = self.imageToUse;
         self.imagePreview.contentMode = UIViewContentModeScaleAspectFit;
 }
@@ -187,11 +190,37 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (CGRect)resizePreviewFrameWithImage:(UIImage *)image {
+    CGRect previewFrame;
+    CGRect screenFrame = [UIScreen mainScreen].bounds;
+    CGFloat inset = 20;
+    CGFloat barHeight = 50;
+    
+    if (image.size.width >= image.size.height) {
+        CGFloat width = screenFrame.size.width - 2 * inset;
+        CGFloat height = width * image.size.height / image.size.width;
+        previewFrame = CGRectMake(inset, (screenFrame.size.height - height)/2, width, height);
+    } else {
+        CGFloat height = screenFrame.size.height - 2 * (inset + barHeight);
+        CGFloat width = height * image.size.width / image.size.height;
+        previewFrame = CGRectMake((screenFrame.size.width - width)/2, barHeight + inset, width, height);
+    }
+    
+    return previewFrame;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    UIImage *defaultBG = [UIImage imageNamed:@"bg"];
+    self.imageToUse = defaultBG;
+
+    self.imagePreview = [[UIImageView alloc] initWithFrame:[self resizePreviewFrameWithImage:self.imageToUse]];
+    self.imagePreview.image = self.imageToUse;
+    self.imagePreview.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:self.imagePreview];
+    
     self.blurSlider.hidden = YES;
     self.blurSlider.value = 0;
 }

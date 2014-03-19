@@ -32,8 +32,8 @@
     self = [super initWithFrame:imageView.frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        self.pointColor      = [UIColor blueColor];
-        self.lineColor       = [UIColor yellowColor];
+        self.pointColor      = [UIColor blackColor];
+        self.lineColor       = [UIColor grayColor];
         self.clipsToBounds   = YES;
         
         [self addPointsAt:nil];

@@ -16,13 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="eyP-fQ-5Tf">
-                                <rect key="frame" x="36" y="44" width="248" height="392"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="248" id="ilU-qI-Tir"/>
-                                </constraints>
-                            </imageView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NbC-b3-XKl">
+                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NbC-b3-XKl">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="Croper" id="qte-gc-DBb">
@@ -77,12 +71,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="eyP-fQ-5Tf" firstAttribute="top" secondItem="NbC-b3-XKl" secondAttribute="bottom" id="2Qt-ph-18M"/>
                             <constraint firstItem="QuD-Ic-lzE" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" id="3ap-N9-7vT"/>
                             <constraint firstItem="QuD-Ic-lzE" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" id="5Wx-bi-JM1"/>
-                            <constraint firstItem="eyP-fQ-5Tf" firstAttribute="centerX" secondItem="NbC-b3-XKl" secondAttribute="centerX" id="9Kd-CQ-Oe5"/>
-                            <constraint firstItem="eyP-fQ-5Tf" firstAttribute="centerX" secondItem="QuD-Ic-lzE" secondAttribute="centerX" id="ABT-yJ-uUj"/>
-                            <constraint firstItem="QuD-Ic-lzE" firstAttribute="top" secondItem="eyP-fQ-5Tf" secondAttribute="bottom" id="gYZ-j2-VAm"/>
                             <constraint firstItem="NbC-b3-XKl" firstAttribute="top" secondItem="3" secondAttribute="top" id="hb2-YL-HS6"/>
                             <constraint firstItem="QuD-Ic-lzE" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="iSs-Ye-rZD"/>
                             <constraint firstItem="NbC-b3-XKl" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="ld3-ep-WPY"/>
@@ -90,7 +80,6 @@
                     </view>
                     <connections>
                         <outlet property="blurSlider" destination="agm-G7-xCQ" id="Ib5-tg-AdN"/>
-                        <outlet property="imagePreview" destination="eyP-fQ-5Tf" id="LvP-2T-gKr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
