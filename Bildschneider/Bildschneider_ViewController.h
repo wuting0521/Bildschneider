@@ -10,6 +10,6 @@
 
 @interface Bildschneider_ViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
-@property (strong, nonatomic) IBOutlet UISlider *blurSlider;
+@property (nonatomic) UISlider *blurSlider;
 
 @end

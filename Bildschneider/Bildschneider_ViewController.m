@@ -18,6 +18,13 @@
 @property (nonatomic) UIImageView *imagePreview;
 @property (nonatomic) UIActionSheet *actionSheet;
 @property (nonatomic) UIImage *imageToUse;
+@property (nonatomic) UIButton *cropButton;
+@property (nonatomic) UIButton *blurButton;
+@property (nonatomic) UIButton *undoButton;
+@property (nonatomic) UIButton *doneButton;
+@property (nonatomic) UIButton *importButton;
+@property (nonatomic) UIButton *saveButton;
+
 @property (strong, nonatomic) Bildschneider_PolygonCropView *polygonCropView;
 @property (strong, nonatomic) Bildschneider_RectangleCropView *rectangleCropView;
 @end
@@ -28,6 +35,13 @@
 @synthesize actionSheet = _actionSheet;
 @synthesize imageToUse = _imageToUse;
 
+@synthesize cropButton = _cropButton;
+@synthesize blurButton = _blurButton;
+@synthesize undoButton = _undoButton;
+@synthesize doneButton = _doneButton;
+@synthesize importButton = _importButton;
+@synthesize saveButton = _saveButton;
+
 - (IBAction)importFromLibrary:(UIBarButtonItem *)sender {
     [self startMediaBrowserFromViewController:self usingDelegate:self];
 }
@@ -37,6 +51,7 @@
     self.actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
     self.actionSheet.destructiveButtonIndex = 2;
     [self.actionSheet showInView:self.view];
+    self.blurSlider.hidden = YES;
 }
 
 - (IBAction)finishCrop:(UIBarButtonItem *)sender {
@@ -50,10 +65,14 @@
     
     
     self.blurSlider.hidden = YES;
-    [self.blurSlider resignFirstResponder];
+    [self.blurSlider sendActionsForControlEvents:UIControlEventTouchCancel];
 }
 
 - (IBAction)cancelCrop:(id)sender {
+
+    self.blurSlider.value = 0.0f;
+    [self.blurSlider sendActionsForControlEvents:UIControlEventTouchCancel];
+
     if (self.polygonCropView) {
         [self.polygonCropView removeFromSuperview];
     }
@@ -66,9 +85,7 @@
         [self.imagePreview setImageToBlur:self.imagePreview.image blurRadius:0 completionBlock:^(NSError *error) {
             
         }];
-    }
-    
-    [self.blurSlider resignFirstResponder];
+    }    
 }
 
 - (IBAction)saveCropedImage:(UIBarButtonItem *)sender {
@@ -88,13 +105,13 @@
     }
 }
 
-- (IBAction)blurImageSlideWithSlider:(UISlider *)sender {
+- (void)blurImageSlide {
     
     self.imagePreview.image = self.imageToUse;
     
     if (self.imagePreview.image) {
-        [self.imagePreview setImageToBlur:self.imagePreview.image blurRadius:sender.value completionBlock:^(NSError *error) {
-            NSLog(@"Radius:%f", sender.value);
+        [self.imagePreview setImageToBlur:self.imagePreview.image blurRadius:self.blurSlider.value completionBlock:^(NSError *error) {
+            //NSLog(@"Radius:%f", sender.value);
         }];
     }
 
@@ -127,7 +144,7 @@
     switch (buttonIndex) {
         case 0:
             //rectangle
-            self.imagePreview.image = self.imageToUse;
+            //self.imagePreview.image = self.imageToUse;
             self.rectangleCropView = [[Bildschneider_RectangleCropView alloc] initWithImageView:self.imagePreview];
             if (self.polygonCropView) {
                 [self.polygonCropView removeFromSuperview];
@@ -137,7 +154,7 @@
             break;
         case 1:
             //polygon
-            self.imagePreview.image = self.imageToUse;
+            //self.imagePreview.image = self.imageToUse;
             self.polygonCropView = [[Bildschneider_PolygonCropView alloc] initWithImageView:self.imagePreview];
             if (self.rectangleCropView) {
                 [self.rectangleCropView removeFromSuperview];
@@ -194,16 +211,16 @@
     CGRect previewFrame;
     CGRect screenFrame = [UIScreen mainScreen].bounds;
     CGFloat inset = 20;
-    CGFloat barHeight = 50;
+    CGFloat buttonHeight = 30;
     
     if (image.size.width >= image.size.height) {
         CGFloat width = screenFrame.size.width - 2 * inset;
         CGFloat height = width * image.size.height / image.size.width;
         previewFrame = CGRectMake(inset, (screenFrame.size.height - height)/2, width, height);
     } else {
-        CGFloat height = screenFrame.size.height - 2 * (inset + barHeight);
+        CGFloat height = screenFrame.size.height - 3 * inset - buttonHeight;
         CGFloat width = height * image.size.width / image.size.height;
-        previewFrame = CGRectMake((screenFrame.size.width - width)/2, barHeight + inset, width, height);
+        previewFrame = CGRectMake((screenFrame.size.width - width)/2, inset, width, height);
     }
     
     return previewFrame;
@@ -221,8 +238,56 @@
     self.imagePreview.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:self.imagePreview];
     
+    CGFloat buttonHeight = 30;
+    CGFloat inset = 20;
+    
+    CGRect screenFrame = [UIScreen mainScreen].bounds;
+    
+    CGRect firstButton = CGRectMake(inset, screenFrame.size.height - inset - buttonHeight, buttonHeight, buttonHeight);
+    CGRect secondButton = CGRectMake(firstButton.origin.x + buttonHeight + inset, firstButton.origin.y, buttonHeight, buttonHeight);
+    CGRect thirdButton = CGRectMake(secondButton.origin.x + buttonHeight + inset, firstButton.origin.y, buttonHeight, buttonHeight);
+    CGRect fourthButton = CGRectMake(thirdButton.origin.x + buttonHeight + inset, firstButton.origin.y, buttonHeight, buttonHeight);
+    CGRect fifthButton = CGRectMake(fourthButton.origin.x + buttonHeight + inset, firstButton.origin.y, buttonHeight, buttonHeight);
+    CGRect sixthButton = CGRectMake(fifthButton.origin.x + buttonHeight + inset, firstButton.origin.y, buttonHeight, buttonHeight);
+    
+    self.importButton = [[UIButton alloc]initWithFrame:firstButton];
+    [self.importButton setImage:[UIImage imageNamed:@"import"] forState:UIControlStateNormal];
+    self.importButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:self.importButton];
+    
+    self.cropButton = [[UIButton alloc] initWithFrame:secondButton];
+    [self.cropButton setImage:[UIImage imageNamed:@"crop"] forState:UIControlStateNormal];
+    self.cropButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:self.cropButton];
+    
+    self.blurButton = [[UIButton alloc] initWithFrame:thirdButton];
+    [self.blurButton setImage:[UIImage imageNamed:@"blur"] forState:UIControlStateNormal];
+    self.blurButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:self.blurButton];
+    
+    self.undoButton = [[UIButton alloc] initWithFrame:fourthButton];
+    [self.undoButton setImage:[UIImage imageNamed:@"undo"] forState:UIControlStateNormal];
+    self.undoButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:self.undoButton];
+    
+    self.doneButton = [[UIButton alloc] initWithFrame:fifthButton];
+    [self.doneButton setImage:[UIImage imageNamed:@"done"] forState:UIControlStateNormal];
+    self.doneButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:self.doneButton];
+    
+    self.saveButton = [[UIButton alloc] initWithFrame:sixthButton];
+    [self.saveButton setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
+    self.saveButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:self.saveButton];
+    
+    CGRect sliderFrame = CGRectMake(inset, screenFrame.size.height - inset * 2 - buttonHeight, screenFrame.size.width - 2 * inset, inset);
+    
+    self.blurSlider = [[UISlider alloc] initWithFrame:sliderFrame];
     self.blurSlider.hidden = YES;
     self.blurSlider.value = 0;
+    self.blurSlider.maximumValue = 15;
+    [self.blurSlider addTarget:self action:@selector(blurImageSlide) forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:self.blurSlider];
 }
 
 - (void)didReceiveMemoryWarning

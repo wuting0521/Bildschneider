@@ -15,72 +15,8 @@
                     <view key="view" contentMode="scaleToFill" id="3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NbC-b3-XKl">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <items>
-                                    <navigationItem title="Croper" id="qte-gc-DBb">
-                                        <barButtonItem key="leftBarButtonItem" title="Import" id="QH4-91-TYv">
-                                            <connections>
-                                                <action selector="importFromLibrary:" destination="2" id="12M-51-g9Q"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Save" id="OSV-cw-uns">
-                                            <connections>
-                                                <action selector="saveCropedImage:" destination="2" id="fU0-M6-viO"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QuD-Ic-lzE">
-                                <rect key="frame" x="0.0" y="436" width="320" height="44"/>
-                                <items>
-                                    <barButtonItem title="Crop" id="44C-QJ-epf">
-                                        <connections>
-                                            <action selector="cropShapeSelection:" destination="2" id="pxA-sO-sK4"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="MNH-CR-AAf"/>
-                                    <barButtonItem title="Blur" id="cd2-pf-Fel">
-                                        <connections>
-                                            <action selector="blurImage:" destination="2" id="pxm-Th-H9u"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="dDu-sl-yvf"/>
-                                    <barButtonItem systemItem="undo" id="gOL-b5-YOJ">
-                                        <connections>
-                                            <action selector="cancelCrop:" destination="2" id="7Wc-aZ-Qpu"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="3hZ-wB-xMw"/>
-                                    <barButtonItem systemItem="done" id="ins-3z-A6S">
-                                        <connections>
-                                            <action selector="finishCrop:" destination="2" id="0U4-Gf-Ghu"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="agm-G7-xCQ">
-                                <rect key="frame" x="34" y="403" width="252" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="blurImageSlideWithSlider:" destination="2" eventType="valueChanged" id="jiN-WV-ofF"/>
-                                </connections>
-                            </slider>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="QuD-Ic-lzE" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" id="3ap-N9-7vT"/>
-                            <constraint firstItem="QuD-Ic-lzE" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" id="5Wx-bi-JM1"/>
-                            <constraint firstItem="NbC-b3-XKl" firstAttribute="top" secondItem="3" secondAttribute="top" id="hb2-YL-HS6"/>
-                            <constraint firstItem="QuD-Ic-lzE" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="iSs-Ye-rZD"/>
-                            <constraint firstItem="NbC-b3-XKl" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="ld3-ep-WPY"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="blurSlider" destination="agm-G7-xCQ" id="Ib5-tg-AdN"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
