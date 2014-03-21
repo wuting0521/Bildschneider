@@ -42,6 +42,22 @@
     return self;
 }
 
+- (id)initWithImageView:(UIImageView *)imageView deviceType:(int)type {
+    self = [super initWithFrame:imageView.frame];
+    
+    if (self) {
+        self.backgroundColor = [UIColor clearColor];
+        self.pointColor = [UIColor blackColor];
+        self.lineColor = [UIColor grayColor];
+        self.clipsToBounds = YES;
+        
+        [self addPointsAt:nil];
+        [self addPointsWithDeviceType:type];
+    }
+    
+    return self;
+}
+
 - (void)addPointsAt:(NSArray *)points
 {
     NSMutableArray *tmp = [NSMutableArray array];
@@ -55,6 +71,78 @@
         
         i++;
     }
+    
+    self.points = tmp;
+}
+
+- (void)addPointsWithDeviceType:(int)type {
+    int num = 4;
+    
+    if (num <= 0) return;
+    
+    NSMutableArray *tmp = [NSMutableArray array];
+    int pointsAdded     = 0;
+    int pointsToAdd     = num -1;
+    float pointsPerSide = 0.0;
+    
+    if (num > 4)
+        pointsPerSide = (num-4) /4.0;
+    
+    CGSize frameSize = self.frame.size;
+    CGPoint point1;
+    CGPoint point2;
+    CGPoint point3;
+    CGPoint point4;
+    
+    CGFloat inset = 20;
+    
+    switch (type) {
+        case 1:
+            //iPhone 4th
+            if (frameSize.width <= frameSize.height * 2 / 3) {
+                point1 = CGPointMake(inset, (frameSize.height - frameSize.width * 3 / 2)/2);
+                point2 = CGPointMake(frameSize.width - inset, point1.y);
+                point4 = CGPointMake(inset, frameSize.width * 3 / 2);
+                point3 = CGPointMake(frameSize.width - inset, frameSize.width * 3 / 2);
+            } else {
+                point1 = CGPointMake((frameSize.width - frameSize.height * 2 / 3)/2, inset);
+                point2 = CGPointMake(point1.x + frameSize.height *2 / 3, inset);
+                point4 = CGPointMake(point1.x, frameSize.height - inset);
+                point3 = CGPointMake(point2.x, frameSize.height - inset);
+            }
+            break;
+            
+        default:
+            break;
+    }
+    
+    // Corner 1
+    UIView *point = [self getPointView:pointsAdded at:point1];
+    [tmp addObject:point];
+    [self addSubview:point];
+    pointsAdded ++;
+    pointsToAdd --;
+    
+    // Corner 2
+    point = [self getPointView:pointsAdded at:point2];
+    [tmp addObject:point];
+    [self addSubview:point];
+    pointsAdded ++;
+    pointsToAdd --;
+    
+    // Corner 3
+    point = [self getPointView:pointsAdded at:point3];
+    [tmp addObject:point];
+    [self addSubview:point];
+    pointsAdded ++;
+    pointsToAdd --;
+    
+    // Corner 4
+    point = [self getPointView:pointsAdded at:point4];
+    [tmp addObject:point];
+    [self addSubview:point];
+    pointsAdded ++;
+    pointsToAdd --;
     
     self.points = tmp;
 }
@@ -259,6 +347,19 @@
     
     NSArray *points = [self getPoints];
     
+    
+    CGPoint point1 = [[points objectAtIndex:0] CGPointValue];
+    CGPoint point2 = [[points objectAtIndex:1] CGPointValue];
+    CGPoint point3 = [[points objectAtIndex:2] CGPointValue];
+    
+    CGFloat width = point2.x - point1.x;
+    CGFloat height = point3.y - point2.y;
+    
+    //NSLog(@"CGWidth:%f, CGHeight:%f", width, height);
+    
+    CGSize imageSize = CGSizeMake(width, height);
+    
+    
     CGRect rect = CGRectZero;
     rect.size = image.image.size;
     
@@ -287,15 +388,19 @@
     UIImage *mask = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0);
+    UIGraphicsBeginImageContextWithOptions(rect.size/*imageSize*/, NO, 0.0);
     
     {
+        CGRect rect2 = CGRectZero;
+        rect2.size = imageSize;
         CGContextClipToMask(UIGraphicsGetCurrentContext(), rect, mask.CGImage);
         [image.image drawAtPoint:CGPointZero];
     }
     
     UIImage *maskedImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    
+    //NSLog(@"w:%f, h:%f", maskedImage.size.width, maskedImage.size.height);
     
     return maskedImage;
 }

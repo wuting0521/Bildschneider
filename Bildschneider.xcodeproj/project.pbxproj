@@ -14,8 +14,14 @@
 		005D4D6C18D95097005FA5F8 /* undo.png in Resources */ = {isa = PBXBuildFile; fileRef = 005D4D6B18D95097005FA5F8 /* undo.png */; };
 		005D4D6E18D95D40005FA5F8 /* import.png in Resources */ = {isa = PBXBuildFile; fileRef = 005D4D6D18D95D40005FA5F8 /* import.png */; };
 		005D4D7018D95D77005FA5F8 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 005D4D6F18D95D77005FA5F8 /* save.png */; };
+		0071003518DC067900AA4237 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0071003418DC067900AA4237 /* CFNetwork.framework */; };
+		0071003718DC068600AA4237 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0071003618DC068600AA4237 /* Security.framework */; };
+		0071003918DC069200AA4237 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0071003818DC069200AA4237 /* SystemConfiguration.framework */; };
+		0071003B18DC06A500AA4237 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0071003A18DC06A500AA4237 /* libc++.dylib */; };
+		0071003D18DC082300AA4237 /* dropbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 0071003C18DC082300AA4237 /* dropbox.png */; };
 		00AC90EE18D87447002154F7 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AC90EC18D87447002154F7 /* bg.png */; };
 		00AC90EF18D87447002154F7 /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AC90ED18D87447002154F7 /* bg@2x.png */; };
+		00E3D41618DBFB8600474A22 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E3D41518DBFB8600474A22 /* Dropbox.framework */; };
 		290DB76A1786C7030090FA4F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290DB7691786C7030090FA4F /* UIKit.framework */; };
 		290DB76C1786C7030090FA4F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290DB76B1786C7030090FA4F /* Foundation.framework */; };
 		290DB76E1786C7030090FA4F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290DB76D1786C7030090FA4F /* CoreGraphics.framework */; };
@@ -45,8 +51,14 @@
 		005D4D6B18D95097005FA5F8 /* undo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = undo.png; sourceTree = "<group>"; };
 		005D4D6D18D95D40005FA5F8 /* import.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = import.png; sourceTree = "<group>"; };
 		005D4D6F18D95D77005FA5F8 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
+		0071003418DC067900AA4237 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		0071003618DC068600AA4237 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0071003818DC069200AA4237 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		0071003A18DC06A500AA4237 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		0071003C18DC082300AA4237 /* dropbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropbox.png; sourceTree = "<group>"; };
 		00AC90EC18D87447002154F7 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		00AC90ED18D87447002154F7 /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
+		00E3D41518DBFB8600474A22 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
 		290DB7661786C7030090FA4F /* Bildschneider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bildschneider.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		290DB7691786C7030090FA4F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		290DB76B1786C7030090FA4F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -82,7 +94,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0071003B18DC06A500AA4237 /* libc++.dylib in Frameworks */,
+				0071003918DC069200AA4237 /* SystemConfiguration.framework in Frameworks */,
+				0071003718DC068600AA4237 /* Security.framework in Frameworks */,
+				0071003518DC067900AA4237 /* CFNetwork.framework in Frameworks */,
 				29E7D70718A7737F00C113BA /* CoreImage.framework in Frameworks */,
+				00E3D41618DBFB8600474A22 /* Dropbox.framework in Frameworks */,
 				29924625178DA617003A3D1D /* QuartzCore.framework in Frameworks */,
 				290DB76A1786C7030090FA4F /* UIKit.framework in Frameworks */,
 				290DB76C1786C7030090FA4F /* Foundation.framework in Frameworks */,
@@ -96,6 +113,7 @@
 		00AC90DD18D86EE1002154F7 /* rspack */ = {
 			isa = PBXGroup;
 			children = (
+				0071003C18DC082300AA4237 /* dropbox.png */,
 				005D4D6F18D95D77005FA5F8 /* save.png */,
 				005D4D6D18D95D40005FA5F8 /* import.png */,
 				005D4D6B18D95097005FA5F8 /* undo.png */,
@@ -129,6 +147,11 @@
 		290DB7681786C7030090FA4F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0071003A18DC06A500AA4237 /* libc++.dylib */,
+				0071003818DC069200AA4237 /* SystemConfiguration.framework */,
+				0071003618DC068600AA4237 /* Security.framework */,
+				0071003418DC067900AA4237 /* CFNetwork.framework */,
+				00E3D41518DBFB8600474A22 /* Dropbox.framework */,
 				29E7D70618A7737F00C113BA /* CoreImage.framework */,
 				29924624178DA617003A3D1D /* QuartzCore.framework */,
 				290DB7691786C7030090FA4F /* UIKit.framework */,
@@ -260,6 +283,7 @@
 				00AC90EF18D87447002154F7 /* bg@2x.png in Resources */,
 				005D4D6C18D95097005FA5F8 /* undo.png in Resources */,
 				005D4D6618D95071005FA5F8 /* blur.png in Resources */,
+				0071003D18DC082300AA4237 /* dropbox.png in Resources */,
 				005D4D6818D9507D005FA5F8 /* crop.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,6 +386,10 @@
 		290DB78A1786C7030090FA4F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bildschneider/Bildschneider-Prefix.pch";
 				INFOPLIST_FILE = "Bildschneider/Bildschneider-Info.plist";
@@ -375,6 +403,10 @@
 		290DB78B1786C7030090FA4F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bildschneider/Bildschneider-Prefix.pch";
 				INFOPLIST_FILE = "Bildschneider/Bildschneider-Info.plist";

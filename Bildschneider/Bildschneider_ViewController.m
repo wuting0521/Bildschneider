@@ -11,6 +11,7 @@
 #import "Bildschneider_RectangleCropView.h"
 #import "Toast+UIView.h"
 #import "UIImageView+LBBlurredImage.h"
+#import <Dropbox/Dropbox.h>
 
 @interface Bildschneider_ViewController ()  {
     UIImageView *b;
@@ -24,6 +25,7 @@
 @property (nonatomic) UIButton *doneButton;
 @property (nonatomic) UIButton *importButton;
 @property (nonatomic) UIButton *saveButton;
+@property (nonatomic) UIButton *dropboxButton;
 
 @property (strong, nonatomic) Bildschneider_PolygonCropView *polygonCropView;
 @property (strong, nonatomic) Bildschneider_RectangleCropView *rectangleCropView;
@@ -41,38 +43,110 @@
 @synthesize doneButton = _doneButton;
 @synthesize importButton = _importButton;
 @synthesize saveButton = _saveButton;
+@synthesize dropboxButton = _dropboxButton;
 
-- (IBAction)importFromLibrary:(UIBarButtonItem *)sender {
+#pragma mark - 
+#pragma mark Dropbox delegate
+
+-(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    DBAccountManager *accountManager = [[DBAccountManager alloc] initWithAppKey:@"lg6qmy5u6ydekdn" secret:@"7ddavanzixrhdy9"];
+    [DBAccountManager setSharedManager:accountManager];
+    
+    return YES;
+}
+
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    DBAccount *account = [[DBAccountManager sharedManager] handleOpenURL:url];
+    if (account) {
+        NSLog(@"app linked successfully");
+        return YES;
+    }
+    
+    return NO;
+}
+
+#pragma mark -
+#pragma mark UI Action Events
+
+//dropbox button action
+-(void)didPressLink {
+    DBAccount *account = [[DBAccountManager sharedManager] linkedAccount];
+    if (account) {
+        NSLog(@"App already linked");
+    } else {
+        [[DBAccountManager sharedManager] linkFromController:self];
+    }
+}
+
+//import button action
+- (void)importFromLibrary {
     [self startMediaBrowserFromViewController:self usingDelegate:self];
 }
 
-- (IBAction)cropShapeSelection:(UIBarButtonItem *)sender {
-    self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Shape" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"Rectangle", @"Polygon", @"Cancel", nil];
+//crop button action
+- (void)cropShapeSelection {
+    self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Shape" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"iPhone4", @"Rectangle", @"Polygon", @"Cancel", nil];
     self.actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
-    self.actionSheet.destructiveButtonIndex = 2;
+    self.actionSheet.destructiveButtonIndex = 3;
     [self.actionSheet showInView:self.view];
     self.blurSlider.hidden = YES;
 }
 
-- (IBAction)finishCrop:(UIBarButtonItem *)sender {
-
-    if (self.polygonCropView) {
-        self.imagePreview.image = [self.polygonCropView deleteBackgroundOfImage:self.imagePreview];
-    }
-    if (self.rectangleCropView) {
-        self.imagePreview.image = [self.rectangleCropView deleteBackgroundOfImage:self.imagePreview];
-    }
+//crop selection
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    
-    self.blurSlider.hidden = YES;
-    [self.blurSlider sendActionsForControlEvents:UIControlEventTouchCancel];
+    switch (buttonIndex) {
+        case 0:
+            //iPhone 4
+            if (self.polygonCropView || self.rectangleCropView) {
+                [self.polygonCropView removeFromSuperview];
+                [self.rectangleCropView removeFromSuperview];
+            }
+            self.rectangleCropView = [[Bildschneider_RectangleCropView alloc] initWithImageView:self.imagePreview deviceType:1];
+            [self.view addSubview:self.rectangleCropView];
+            break;
+        case 1:
+            //rectangle
+            //self.imagePreview.image = self.imageToUse;
+            self.rectangleCropView = [[Bildschneider_RectangleCropView alloc] initWithImageView:self.imagePreview];
+            if (self.polygonCropView) {
+                [self.polygonCropView removeFromSuperview];
+            }
+            [self.view addSubview:self.rectangleCropView];
+            break;
+        case 2:
+            //polygon
+            //self.imagePreview.image = self.imageToUse;
+            self.polygonCropView = [[Bildschneider_PolygonCropView alloc] initWithImageView:self.imagePreview];
+            if (self.rectangleCropView) {
+                [self.rectangleCropView removeFromSuperview];
+            }
+            
+            [self.view addSubview:self.polygonCropView];
+            break;
+        case 3:
+            //cancel
+            break;
+        default:
+            break;
+    }
 }
 
-- (IBAction)cancelCrop:(id)sender {
+//blur button action
+- (void)blurImage {
+    self.blurSlider.hidden = NO;
+    [self.blurSlider setValue:5 animated:YES];
+    if (self.imagePreview.image) {
+        [self.imagePreview setImageToBlur:self.imagePreview.image blurRadius:self.blurSlider.value completionBlock:^(NSError *error) {
+        }];
+    }
+}
 
+//undo button action
+- (void)cancelCrop {
     self.blurSlider.value = 0.0f;
     [self.blurSlider sendActionsForControlEvents:UIControlEventTouchCancel];
-
+    
     if (self.polygonCropView) {
         [self.polygonCropView removeFromSuperview];
     }
@@ -85,26 +159,31 @@
         [self.imagePreview setImageToBlur:self.imagePreview.image blurRadius:0 completionBlock:^(NSError *error) {
             
         }];
-    }    
+    }
 }
 
-- (IBAction)saveCropedImage:(UIBarButtonItem *)sender {
+//done button action
+- (void)finishCrop {
+    if (self.polygonCropView) {
+        self.imagePreview.image = [self.polygonCropView deleteBackgroundOfImage:self.imagePreview];
+    }
+    if (self.rectangleCropView) {
+        self.imagePreview.image = [self.rectangleCropView deleteBackgroundOfImage:self.imagePreview];
+    }
+    
+    self.blurSlider.hidden = YES;
+    [self.blurSlider sendActionsForControlEvents:UIControlEventTouchCancel];
+}
 
+//save button action
+- (void)saveCropedImage {
     if (self.imagePreview.image) {
         UIImageWriteToSavedPhotosAlbum(self.imagePreview.image, NULL, NULL, NULL);
         [self.view makeToast:@"Image saved."];
     }
 }
 
-- (IBAction)blurImage:(UIBarButtonItem *)sender {
-    self.blurSlider.hidden = NO;
-    [self.blurSlider setValue:5 animated:YES];
-    if (self.imagePreview.image) {
-        [self.imagePreview setImageToBlur:self.imagePreview.image blurRadius:self.blurSlider.value completionBlock:^(NSError *error) {
-        }];
-    }
-}
-
+//blur slider action
 - (void)blurImageSlide {
     
     self.imagePreview.image = self.imageToUse;
@@ -139,36 +218,9 @@
 }
  */
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    switch (buttonIndex) {
-        case 0:
-            //rectangle
-            //self.imagePreview.image = self.imageToUse;
-            self.rectangleCropView = [[Bildschneider_RectangleCropView alloc] initWithImageView:self.imagePreview];
-            if (self.polygonCropView) {
-                [self.polygonCropView removeFromSuperview];
-            }
-            
-            [self.view addSubview:self.rectangleCropView];
-            break;
-        case 1:
-            //polygon
-            //self.imagePreview.image = self.imageToUse;
-            self.polygonCropView = [[Bildschneider_PolygonCropView alloc] initWithImageView:self.imagePreview];
-            if (self.rectangleCropView) {
-                [self.rectangleCropView removeFromSuperview];
-            }
-            
-            [self.view addSubview:self.polygonCropView];
-            break;
-        case 2:
-            //cancel
-            break;
-        default:
-            break;
-    }
-}
+
+#pragma mark - 
+#pragma mark Image Library
 
 - (BOOL) startMediaBrowserFromViewController: (UIViewController *) controller usingDelegate: (id<UIImagePickerControllerDelegate, UINavigationControllerDelegate>) delegate {
     
@@ -207,11 +259,14 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - 
+#pragma mark UI
+
 - (CGRect)resizePreviewFrameWithImage:(UIImage *)image {
     CGRect previewFrame;
     CGRect screenFrame = [UIScreen mainScreen].bounds;
     CGFloat inset = 20;
-    CGFloat buttonHeight = 30;
+    CGFloat buttonHeight = 22;
     
     if (image.size.width >= image.size.height) {
         CGFloat width = screenFrame.size.width - 2 * inset;
@@ -239,51 +294,66 @@
     self.imagePreview.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:self.imagePreview];
     
-    CGFloat buttonHeight = 30;
+    CGFloat buttonHeight = 22;
     CGFloat inset = 20;
     
     CGRect screenFrame = [UIScreen mainScreen].bounds;
     
     //buttons 
-    CGRect firstButton = CGRectMake(inset, screenFrame.size.height - inset - buttonHeight, buttonHeight, buttonHeight);
+    CGRect firstButton = CGRectMake(inset, screenFrame.size.height - inset/2 - buttonHeight, buttonHeight, buttonHeight);
     CGRect secondButton = CGRectMake(firstButton.origin.x + buttonHeight + inset, firstButton.origin.y, buttonHeight, buttonHeight);
     CGRect thirdButton = CGRectMake(secondButton.origin.x + buttonHeight + inset, firstButton.origin.y, buttonHeight, buttonHeight);
     CGRect fourthButton = CGRectMake(thirdButton.origin.x + buttonHeight + inset, firstButton.origin.y, buttonHeight, buttonHeight);
     CGRect fifthButton = CGRectMake(fourthButton.origin.x + buttonHeight + inset, firstButton.origin.y, buttonHeight, buttonHeight);
     CGRect sixthButton = CGRectMake(fifthButton.origin.x + buttonHeight + inset, firstButton.origin.y, buttonHeight, buttonHeight);
+    CGRect seventhButton = CGRectMake(sixthButton.origin.x + buttonHeight + inset, firstButton.origin.y, buttonHeight, buttonHeight);
     
-    self.importButton = [[UIButton alloc]initWithFrame:firstButton];
+    self.dropboxButton = [[UIButton alloc] initWithFrame:firstButton];
+    [self.dropboxButton setImage:[UIImage imageNamed:@"dropbox"] forState:UIControlStateNormal];
+    self.dropboxButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.dropboxButton addTarget:self action:@selector(didPressLink) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.dropboxButton];
+    
+    
+    self.importButton = [[UIButton alloc]initWithFrame:secondButton];
     [self.importButton setImage:[UIImage imageNamed:@"import"] forState:UIControlStateNormal];
     self.importButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.importButton addTarget:self action:@selector(importFromLibrary) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.importButton];
     
-    self.cropButton = [[UIButton alloc] initWithFrame:secondButton];
+    self.cropButton = [[UIButton alloc] initWithFrame:thirdButton];
     [self.cropButton setImage:[UIImage imageNamed:@"crop"] forState:UIControlStateNormal];
     self.cropButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.cropButton addTarget:self action:@selector(cropShapeSelection) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.cropButton];
     
-    self.blurButton = [[UIButton alloc] initWithFrame:thirdButton];
+    self.blurButton = [[UIButton alloc] initWithFrame:fourthButton];
     [self.blurButton setImage:[UIImage imageNamed:@"blur"] forState:UIControlStateNormal];
     self.blurButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.blurButton addTarget:self action:@selector(blurImage) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.blurButton];
     
-    self.undoButton = [[UIButton alloc] initWithFrame:fourthButton];
+    self.undoButton = [[UIButton alloc] initWithFrame:fifthButton];
     [self.undoButton setImage:[UIImage imageNamed:@"undo"] forState:UIControlStateNormal];
     self.undoButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.undoButton addTarget:self action:@selector(cancelCrop) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.undoButton];
     
-    self.doneButton = [[UIButton alloc] initWithFrame:fifthButton];
+    self.doneButton = [[UIButton alloc] initWithFrame:sixthButton];
     [self.doneButton setImage:[UIImage imageNamed:@"done"] forState:UIControlStateNormal];
     self.doneButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.doneButton addTarget:self action:@selector(finishCrop) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.doneButton];
     
-    self.saveButton = [[UIButton alloc] initWithFrame:sixthButton];
+    self.saveButton = [[UIButton alloc] initWithFrame:seventhButton];
     [self.saveButton setImage:[UIImage imageNamed:@"save"] forState:UIControlStateNormal];
     self.saveButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.saveButton addTarget:self action:@selector(saveCropedImage) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.saveButton];
     
     CGRect sliderFrame = CGRectMake(inset, screenFrame.size.height - inset * 2 - buttonHeight, screenFrame.size.width - 2 * inset, inset);
     
+    //blur slider
     self.blurSlider = [[UISlider alloc] initWithFrame:sliderFrame];
     self.blurSlider.hidden = YES;
     self.blurSlider.value = 0;

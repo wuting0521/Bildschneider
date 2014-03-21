@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UIColor *lineColor;
 
 - (id)initWithImageView:(UIImageView *)imageView;
+- (id)initWithImageView:(UIImageView *)imageView deviceType:(int)type;
 
 - (NSArray *)getPoints;
 - (UIImage *)deleteBackgroundOfImage:(UIImageView *)image;
