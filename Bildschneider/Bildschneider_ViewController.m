@@ -94,8 +94,7 @@
         if ([results count]) {
             //process result from chooser
             DBChooserResult *result = [results firstObject];
-            //NSLog(@"%@", [result.link absoluteString]);
-            //TODO:load the image by https request;
+            //TODO:load the image by https 异步 request;
             NSURLRequest *request = [NSURLRequest requestWithURL:result.link cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
             self.dbData = [NSMutableData dataWithCapacity:0];
             NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
