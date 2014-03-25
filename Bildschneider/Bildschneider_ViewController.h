@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Bildschneider_ViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface Bildschneider_ViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, NSURLConnectionDelegate>
 
 @property (nonatomic) UISlider *blurSlider;
 

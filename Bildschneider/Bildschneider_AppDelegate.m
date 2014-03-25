@@ -7,13 +7,35 @@
 //
 
 #import "Bildschneider_AppDelegate.h"
+#import <Dropbox/Dropbox.h>
+#import <DBChooser/DBChooser.h>
 
 @implementation Bildschneider_AppDelegate
+
+#define kAppKey @"lg6qmy5u6ydekdn"
+#define kAppSecret @"7ddavanzixrhdy9"
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    DBAccountManager *accountManager = [[DBAccountManager alloc] initWithAppKey:kAppKey secret:kAppSecret];
+    [DBAccountManager setSharedManager:accountManager];
+
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    /*
+    DBAccount *account = [[DBAccountManager sharedManager] handleOpenURL:url];
+    if (account) {
+        NSLog(@"app link successfully!");
+        return YES;
+    }
+    */
+    if ([[DBChooser defaultChooser] handleOpenURL:url]) {
+        //this was a chooser response and handleOpenURL automatically ran the completion
+    }
+    return NO;
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

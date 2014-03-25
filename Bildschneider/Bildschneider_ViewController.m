@@ -12,6 +12,7 @@
 #import "Toast+UIView.h"
 #import "UIImageView+LBBlurredImage.h"
 #import <Dropbox/Dropbox.h>
+#import <DBChooser/DBChooser.h>
 
 @interface Bildschneider_ViewController ()  {
     UIImageView *b;
@@ -26,6 +27,7 @@
 @property (nonatomic) UIButton *importButton;
 @property (nonatomic) UIButton *saveButton;
 @property (nonatomic) UIButton *dropboxButton;
+@property (nonatomic, strong) NSMutableData *dbData;
 
 @property (strong, nonatomic) Bildschneider_PolygonCropView *polygonCropView;
 @property (strong, nonatomic) Bildschneider_RectangleCropView *rectangleCropView;
@@ -45,37 +47,75 @@
 @synthesize saveButton = _saveButton;
 @synthesize dropboxButton = _dropboxButton;
 
-#pragma mark - 
-#pragma mark Dropbox delegate
-
--(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    DBAccountManager *accountManager = [[DBAccountManager alloc] initWithAppKey:@"lg6qmy5u6ydekdn" secret:@"7ddavanzixrhdy9"];
-    [DBAccountManager setSharedManager:accountManager];
-    
-    return YES;
+#pragma mark -
+#pragma mark NSURLConnection Delegate
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    [self.dbData setLength:0];
+    NSLog(@"did receive response");
 }
 
--(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    DBAccount *account = [[DBAccountManager sharedManager] handleOpenURL:url];
-    if (account) {
-        NSLog(@"app linked successfully");
-        return YES;
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+    [self.dbData appendData:data];
+    NSLog(@"data:%d", self.dbData.length);
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    self.dbData = nil;
+    NSLog(@"faild! Error - %@ %@", [error localizedDescription], [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    UIImage *image = [UIImage imageWithData:self.dbData];
+    if (image) {
+        NSLog(@"image");
+        NSLog(@"size:%f * %f", image.size.width, image.size.height);
+    } else {
+        NSLog(@"nil");
     }
-    
-    return NO;
+    //[self.imagePreview setBounds:[self resizePreviewFrameWithImage:self.imageToUse]];
+    //[self.imagePreview setImage:self.imageToUse];
 }
-
 #pragma mark -
 #pragma mark UI Action Events
 
-//dropbox button action
--(void)didPressLink {
+//dropbox button action.old
+- (void)didPressLink {
     DBAccount *account = [[DBAccountManager sharedManager] linkedAccount];
     if (account) {
         NSLog(@"App already linked");
     } else {
         [[DBAccountManager sharedManager] linkFromController:self];
     }
+}
+
+//dropbox button chooser action
+- (void)didPressChoose {
+    [[DBChooser defaultChooser] openChooserForLinkType:DBChooserLinkTypeDirect fromViewController:self completion:^(NSArray *results) {
+        if ([results count]) {
+            //process result from chooser
+            DBChooserResult *result = [results firstObject];
+            //NSLog(@"%@", [result.link absoluteString]);
+            //TODO:load the image by https request;
+            NSURLRequest *request = [NSURLRequest requestWithURL:result.link cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
+            self.dbData = [NSMutableData dataWithCapacity:0];
+            NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+            if (!connection) {
+                NSLog(@"failed");
+                self.dbData = nil;
+            }
+            
+            UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:result.link]];
+            if (img) {
+                self.imageToUse = img;
+                [self.imagePreview setBounds:[self resizePreviewFrameWithImage:self.imageToUse]];
+                [self.imagePreview setImage:self.imageToUse];
+            }
+            
+            //[self.imagePreview setImage:self.imageToUse];
+        } else {
+            //user canceled the action
+        }
+    }];
 }
 
 //import button action
@@ -218,11 +258,10 @@
 }
  */
 
-
 #pragma mark - 
 #pragma mark Image Library
 
-- (BOOL) startMediaBrowserFromViewController: (UIViewController *) controller usingDelegate: (id<UIImagePickerControllerDelegate, UINavigationControllerDelegate>) delegate {
+- (BOOL)startMediaBrowserFromViewController: (UIViewController *) controller usingDelegate: (id<UIImagePickerControllerDelegate, UINavigationControllerDelegate>) delegate {
     
     if (([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO) || (delegate == nil)
          || (controller == nil)) return NO;
@@ -239,7 +278,6 @@
 }
 
 - (void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    
     UIImage *originalImage, *editedImage;
     if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:@"public.image"]) {
         editedImage = (UIImage *) [info objectForKey:UIImagePickerControllerEditedImage];
@@ -254,7 +292,7 @@
         self.imagePreview.bounds = [self resizePreviewFrameWithImage:self.imageToUse];
         self.imagePreview.image = self.imageToUse;
         self.imagePreview.contentMode = UIViewContentModeScaleAspectFit;
-}
+    }
     
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
@@ -311,7 +349,7 @@
     self.dropboxButton = [[UIButton alloc] initWithFrame:firstButton];
     [self.dropboxButton setImage:[UIImage imageNamed:@"dropbox"] forState:UIControlStateNormal];
     self.dropboxButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.dropboxButton addTarget:self action:@selector(didPressLink) forControlEvents:UIControlEventTouchUpInside];
+    [self.dropboxButton addTarget:self action:@selector(didPressChoose) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.dropboxButton];
     
     
