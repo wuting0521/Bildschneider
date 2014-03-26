@@ -19,8 +19,8 @@
 		0071003918DC069200AA4237 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0071003818DC069200AA4237 /* SystemConfiguration.framework */; };
 		0071003B18DC06A500AA4237 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0071003A18DC06A500AA4237 /* libc++.dylib */; };
 		0071003D18DC082300AA4237 /* dropbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 0071003C18DC082300AA4237 /* dropbox.png */; };
-		00784A4118DEB38400EA8A34 /* DBChooser.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 00784A3F18DEB38400EA8A34 /* DBChooser.bundle */; };
-		00784A4218DEB38400EA8A34 /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00784A4018DEB38400EA8A34 /* DBChooser.framework */; };
+		00A9A73718E2650100107FF3 /* DBChooser.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 00784A3F18DEB38400EA8A34 /* DBChooser.bundle */; };
+		00A9A73818E2650D00107FF3 /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00784A4018DEB38400EA8A34 /* DBChooser.framework */; };
 		00AC90EE18D87447002154F7 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AC90EC18D87447002154F7 /* bg.png */; };
 		00AC90EF18D87447002154F7 /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AC90ED18D87447002154F7 /* bg@2x.png */; };
 		00E3D41618DBFB8600474A22 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E3D41518DBFB8600474A22 /* Dropbox.framework */; };
@@ -58,8 +58,8 @@
 		0071003818DC069200AA4237 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0071003A18DC06A500AA4237 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		0071003C18DC082300AA4237 /* dropbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropbox.png; sourceTree = "<group>"; };
-		00784A3F18DEB38400EA8A34 /* DBChooser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DBChooser.bundle; path = "../../../../../Downloads/dropbox-ios-dropins-sdk-1.2.1/DBChooser.bundle"; sourceTree = "<group>"; };
-		00784A4018DEB38400EA8A34 /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DBChooser.framework; path = "../../../../../Downloads/dropbox-ios-dropins-sdk-1.2.1/DBChooser.framework"; sourceTree = "<group>"; };
+		00784A3F18DEB38400EA8A34 /* DBChooser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DBChooser.bundle; path = "../../../../../Dropbox/Saves/dropbox-ios-dropins-sdk-1.2.1/DBChooser.bundle"; sourceTree = "<group>"; };
+		00784A4018DEB38400EA8A34 /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DBChooser.framework; path = "../../../../../Dropbox/Saves/dropbox-ios-dropins-sdk-1.2.1/DBChooser.framework"; sourceTree = "<group>"; };
 		00AC90EC18D87447002154F7 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		00AC90ED18D87447002154F7 /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
 		00E3D41518DBFB8600474A22 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
@@ -98,8 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00784A4118DEB38400EA8A34 /* DBChooser.bundle in Frameworks */,
-				00784A4218DEB38400EA8A34 /* DBChooser.framework in Frameworks */,
+				00A9A73818E2650D00107FF3 /* DBChooser.framework in Frameworks */,
+				00A9A73718E2650100107FF3 /* DBChooser.bundle in Frameworks */,
 				0071003B18DC06A500AA4237 /* libc++.dylib in Frameworks */,
 				0071003918DC069200AA4237 /* SystemConfiguration.framework in Frameworks */,
 				0071003718DC068600AA4237 /* Security.framework in Frameworks */,
@@ -405,6 +405,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"/Users/wuting/Downloads/dropbox-ios-dropins-sdk-1.2.1",
+					"/Users/wuting/Dropbox/Saves/dropbox-ios-dropins-sdk-1.2.1",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bildschneider/Bildschneider-Prefix.pch";
@@ -426,6 +427,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"/Users/wuting/Downloads/dropbox-ios-dropins-sdk-1.2.1",
+					"/Users/wuting/Dropbox/Saves/dropbox-ios-dropins-sdk-1.2.1",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bildschneider/Bildschneider-Prefix.pch";

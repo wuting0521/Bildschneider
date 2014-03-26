@@ -100,10 +100,10 @@
         case 1:
             //iPhone 4th
             if (frameSize.width <= frameSize.height * 2 / 3) {
-                point1 = CGPointMake(inset, (frameSize.height - frameSize.width * 3 / 2)/2);
+                point1 = CGPointMake(inset, (frameSize.height - frameSize.width * 3 / 2)/2 + inset);
                 point2 = CGPointMake(frameSize.width - inset, point1.y);
-                point4 = CGPointMake(inset, frameSize.width * 3 / 2);
-                point3 = CGPointMake(frameSize.width - inset, frameSize.width * 3 / 2);
+                point4 = CGPointMake(inset, frameSize.width * 3 / 2 - inset);
+                point3 = CGPointMake(frameSize.width - inset, point4.y);
             } else {
                 point1 = CGPointMake((frameSize.width - frameSize.height * 2 / 3)/2, inset);
                 point2 = CGPointMake(point1.x + frameSize.height *2 / 3, inset);
@@ -111,7 +111,19 @@
                 point3 = CGPointMake(point2.x, frameSize.height - inset);
             }
             break;
-            
+        case 2:
+            //iPhone 5th
+            if (frameSize.width <= frameSize.height * 640 / 1136) {
+                point1 = CGPointMake(inset, (frameSize.height - frameSize.width * 1136 / 640)/2 + inset);
+                point2 = CGPointMake(frameSize.width - inset, point1.y);
+                point4 = CGPointMake(inset, frameSize.width * 1136 / 640 - inset);
+                point3 = CGPointMake(frameSize.width - inset, point4.y);
+            } else {
+                point1 = CGPointMake((frameSize.width - frameSize.height * 640 / 1136)/2, inset);
+                point2 = CGPointMake(point1.x + frameSize.height * 640 / 1136, inset);
+                point4 = CGPointMake(point1.x, frameSize.height - inset);
+                point3 = CGPointMake(point2.x, frameSize.height - inset);
+            }
         default:
             break;
     }

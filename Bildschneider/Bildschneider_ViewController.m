@@ -27,6 +27,8 @@
 @property (nonatomic) UIButton *importButton;
 @property (nonatomic) UIButton *saveButton;
 @property (nonatomic) UIButton *dropboxButton;
+@property (nonatomic) UIActivityIndicatorView *loadingProgress;
+
 @property (nonatomic, strong) NSMutableData *dbData;
 
 @property (strong, nonatomic) Bildschneider_PolygonCropView *polygonCropView;
@@ -38,7 +40,6 @@
 @synthesize blurSlider = _blurSlider;
 @synthesize actionSheet = _actionSheet;
 @synthesize imageToUse = _imageToUse;
-
 @synthesize cropButton = _cropButton;
 @synthesize blurButton = _blurButton;
 @synthesize undoButton = _undoButton;
@@ -46,29 +47,37 @@
 @synthesize importButton = _importButton;
 @synthesize saveButton = _saveButton;
 @synthesize dropboxButton = _dropboxButton;
+@synthesize loadingProgress = _loadingProgress;
 
 #pragma mark -
 #pragma mark NSURLConnection Delegate
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     [self.dbData setLength:0];
-    NSLog(@"did receive response");
+    self.imagePreview.hidden = YES;
+    [self.loadingProgress startAnimating];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     [self.dbData appendData:data];
-    NSLog(@"data:%d", self.dbData.length);
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     self.dbData = nil;
-    NSLog(@"faild! Error - %@ %@", [error localizedDescription], [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+    //NSLog(@"faild! Error - %@ %@", [error localizedDescription], [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+    NSString *errorMessage = [NSString stringWithFormat:@"Loading faild! Error - % %@", [error localizedDescription]];
+    [self.view makeToast:errorMessage];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     UIImage *image = [UIImage imageWithData:self.dbData];
     if (image) {
-        NSLog(@"image");
-        NSLog(@"size:%f * %f", image.size.width, image.size.height);
+        [self.loadingProgress stopAnimating];
+        
+        self.imageToUse = image;
+        [self.imagePreview setBounds:[self resizePreviewFrameWithImage:self.imageToUse]];
+        [self.imagePreview setImage:self.imageToUse];
+        self.imagePreview.hidden = NO;
+        [self.imagePreview setNeedsDisplay];
     } else {
         NSLog(@"nil");
     }
@@ -103,12 +112,12 @@
                 self.dbData = nil;
             }
             
-            UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:result.link]];
-            if (img) {
-                self.imageToUse = img;
-                [self.imagePreview setBounds:[self resizePreviewFrameWithImage:self.imageToUse]];
-                [self.imagePreview setImage:self.imageToUse];
-            }
+       //     UIImage *img = [UIImage imageWithData:[NSData dataWithContentsOfURL:result.link]];
+       //     if (img) {
+       //         self.imageToUse = img;
+       //         [self.imagePreview setBounds:[self resizePreviewFrameWithImage:self.imageToUse]];
+       //         [self.imagePreview setImage:self.imageToUse];
+       //     }
             
             //[self.imagePreview setImage:self.imageToUse];
         } else {
@@ -124,9 +133,9 @@
 
 //crop button action
 - (void)cropShapeSelection {
-    self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Shape" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"iPhone4", @"Rectangle", @"Polygon", @"Cancel", nil];
+    self.actionSheet = [[UIActionSheet alloc] initWithTitle:@"Select Shape" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:@"iPhone4", @"iPhone5", @"Rectangle", @"Polygon", @"Cancel", nil];
     self.actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
-    self.actionSheet.destructiveButtonIndex = 3;
+    self.actionSheet.destructiveButtonIndex = 4;
     [self.actionSheet showInView:self.view];
     self.blurSlider.hidden = YES;
 }
@@ -137,33 +146,35 @@
     switch (buttonIndex) {
         case 0:
             //iPhone 4
-            if (self.polygonCropView || self.rectangleCropView) {
-                [self.polygonCropView removeFromSuperview];
-                [self.rectangleCropView removeFromSuperview];
-            }
+            [self.polygonCropView removeFromSuperview];
+            [self.rectangleCropView removeFromSuperview];
             self.rectangleCropView = [[Bildschneider_RectangleCropView alloc] initWithImageView:self.imagePreview deviceType:1];
             [self.view addSubview:self.rectangleCropView];
             break;
         case 1:
-            //rectangle
-            //self.imagePreview.image = self.imageToUse;
-            self.rectangleCropView = [[Bildschneider_RectangleCropView alloc] initWithImageView:self.imagePreview];
-            if (self.polygonCropView) {
-                [self.polygonCropView removeFromSuperview];
-            }
+            //iPhone 5
+            [self.polygonCropView removeFromSuperview];
+            [self.rectangleCropView removeFromSuperview];
+            self.rectangleCropView = [[Bildschneider_RectangleCropView alloc] initWithImageView:self.imagePreview deviceType:2];
             [self.view addSubview:self.rectangleCropView];
             break;
         case 2:
-            //polygon
+            //rectangle
             //self.imagePreview.image = self.imageToUse;
-            self.polygonCropView = [[Bildschneider_PolygonCropView alloc] initWithImageView:self.imagePreview];
-            if (self.rectangleCropView) {
-                [self.rectangleCropView removeFromSuperview];
-            }
-            
-            [self.view addSubview:self.polygonCropView];
+            [self.polygonCropView removeFromSuperview];
+            [self.rectangleCropView removeFromSuperview];
+            self.rectangleCropView = [[Bildschneider_RectangleCropView alloc] initWithImageView:self.imagePreview];
+            [self.view addSubview:self.rectangleCropView];
             break;
         case 3:
+            //polygon
+            //self.imagePreview.image = self.imageToUse;
+            [self.polygonCropView removeFromSuperview];
+            [self.rectangleCropView removeFromSuperview];
+            self.polygonCropView = [[Bildschneider_PolygonCropView alloc] initWithImageView:self.imagePreview];
+            [self.view addSubview:self.polygonCropView];
+            break;
+        case 4:
             //cancel
             break;
         default:
@@ -390,13 +401,18 @@
     
     CGRect sliderFrame = CGRectMake(inset, screenFrame.size.height - inset * 2 - buttonHeight, screenFrame.size.width - 2 * inset, inset);
     
-    //blur slider
     self.blurSlider = [[UISlider alloc] initWithFrame:sliderFrame];
     self.blurSlider.hidden = YES;
     self.blurSlider.value = 0;
     self.blurSlider.maximumValue = 15;
     [self.blurSlider addTarget:self action:@selector(blurImageSlide) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:self.blurSlider];
+    
+    CGRect progressFrame = CGRectMake((screenFrame.size.width - inset)/2, (screenFrame.size.height - inset)/2, inset, inset);
+    self.loadingProgress = [[UIActivityIndicatorView alloc] initWithFrame:progressFrame];
+    [self.loadingProgress setColor:[UIColor blackColor]];
+    self.loadingProgress.hidesWhenStopped = YES;
+    [self.view addSubview:self.loadingProgress];
 }
 
 - (void)didReceiveMemoryWarning
