@@ -10,29 +10,29 @@
 	<string>Bildschneider</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>6348B16F-067A-4DD1-8A5D-BD5371C5D098</key>
-		<string>https://github.com/wuting0521/Bildschneider.git</string>
+		<key>8942087A46D2B5116AFF412DFF062D4AEEC2FFB4</key>
+		<string>github.com:wuting0521/Bildschneider.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Bildschneider.xcodeproj/project.xcworkspace</string>
+	<string>Bildschneider.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>6348B16F-067A-4DD1-8A5D-BD5371C5D098</key>
+		<key>8942087A46D2B5116AFF412DFF062D4AEEC2FFB4</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/wuting0521/Bildschneider.git</string>
+	<string>github.com:wuting0521/Bildschneider.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>6348B16F-067A-4DD1-8A5D-BD5371C5D098</string>
+	<string>8942087A46D2B5116AFF412DFF062D4AEEC2FFB4</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>6348B16F-067A-4DD1-8A5D-BD5371C5D098</string>
+			<string>8942087A46D2B5116AFF412DFF062D4AEEC2FFB4</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Bildschneider</string>
 		</dict>

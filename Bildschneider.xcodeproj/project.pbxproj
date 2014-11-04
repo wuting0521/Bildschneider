@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		002670111A08727400B60A20 /* DBChooser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0026700F1A08727400B60A20 /* DBChooser.bundle */; };
+		002670121A08727400B60A20 /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002670101A08727400B60A20 /* DBChooser.framework */; };
+		002670141A0872C000B60A20 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 002670131A0872C000B60A20 /* Dropbox.framework */; };
 		005D4D6418D91E15005FA5F8 /* dev log.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 005D4D6318D91E15005FA5F8 /* dev log.rtf */; };
 		005D4D6618D95071005FA5F8 /* blur.png in Resources */ = {isa = PBXBuildFile; fileRef = 005D4D6518D95071005FA5F8 /* blur.png */; };
 		005D4D6818D9507D005FA5F8 /* crop.png in Resources */ = {isa = PBXBuildFile; fileRef = 005D4D6718D9507D005FA5F8 /* crop.png */; };
@@ -19,11 +22,8 @@
 		0071003918DC069200AA4237 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0071003818DC069200AA4237 /* SystemConfiguration.framework */; };
 		0071003B18DC06A500AA4237 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0071003A18DC06A500AA4237 /* libc++.dylib */; };
 		0071003D18DC082300AA4237 /* dropbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 0071003C18DC082300AA4237 /* dropbox.png */; };
-		00A9A73718E2650100107FF3 /* DBChooser.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = 00784A3F18DEB38400EA8A34 /* DBChooser.bundle */; };
-		00A9A73818E2650D00107FF3 /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00784A4018DEB38400EA8A34 /* DBChooser.framework */; };
 		00AC90EE18D87447002154F7 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AC90EC18D87447002154F7 /* bg.png */; };
 		00AC90EF18D87447002154F7 /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00AC90ED18D87447002154F7 /* bg@2x.png */; };
-		00E3D41618DBFB8600474A22 /* Dropbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00E3D41518DBFB8600474A22 /* Dropbox.framework */; };
 		290DB76A1786C7030090FA4F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290DB7691786C7030090FA4F /* UIKit.framework */; };
 		290DB76C1786C7030090FA4F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290DB76B1786C7030090FA4F /* Foundation.framework */; };
 		290DB76E1786C7030090FA4F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290DB76D1786C7030090FA4F /* CoreGraphics.framework */; };
@@ -46,6 +46,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0026700F1A08727400B60A20 /* DBChooser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DBChooser.bundle; sourceTree = "<group>"; };
+		002670101A08727400B60A20 /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
+		002670131A0872C000B60A20 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
 		005D4D6318D91E15005FA5F8 /* dev log.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "dev log.rtf"; sourceTree = "<group>"; };
 		005D4D6518D95071005FA5F8 /* blur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blur.png; sourceTree = "<group>"; };
 		005D4D6718D9507D005FA5F8 /* crop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crop.png; sourceTree = "<group>"; };
@@ -58,11 +61,8 @@
 		0071003818DC069200AA4237 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0071003A18DC06A500AA4237 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		0071003C18DC082300AA4237 /* dropbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dropbox.png; sourceTree = "<group>"; };
-		00784A3F18DEB38400EA8A34 /* DBChooser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DBChooser.bundle; path = "../../../../../Dropbox/Saves/dropbox-ios-dropins-sdk-1.2.1/DBChooser.bundle"; sourceTree = "<group>"; };
-		00784A4018DEB38400EA8A34 /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DBChooser.framework; path = "../../../../../Dropbox/Saves/dropbox-ios-dropins-sdk-1.2.1/DBChooser.framework"; sourceTree = "<group>"; };
 		00AC90EC18D87447002154F7 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		00AC90ED18D87447002154F7 /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
-		00E3D41518DBFB8600474A22 /* Dropbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Dropbox.framework; sourceTree = "<group>"; };
 		290DB7661786C7030090FA4F /* Bildschneider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bildschneider.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		290DB7691786C7030090FA4F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		290DB76B1786C7030090FA4F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -98,14 +98,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00A9A73818E2650D00107FF3 /* DBChooser.framework in Frameworks */,
-				00A9A73718E2650100107FF3 /* DBChooser.bundle in Frameworks */,
 				0071003B18DC06A500AA4237 /* libc++.dylib in Frameworks */,
 				0071003918DC069200AA4237 /* SystemConfiguration.framework in Frameworks */,
+				002670121A08727400B60A20 /* DBChooser.framework in Frameworks */,
+				002670141A0872C000B60A20 /* Dropbox.framework in Frameworks */,
 				0071003718DC068600AA4237 /* Security.framework in Frameworks */,
 				0071003518DC067900AA4237 /* CFNetwork.framework in Frameworks */,
 				29E7D70718A7737F00C113BA /* CoreImage.framework in Frameworks */,
-				00E3D41618DBFB8600474A22 /* Dropbox.framework in Frameworks */,
 				29924625178DA617003A3D1D /* QuartzCore.framework in Frameworks */,
 				290DB76A1786C7030090FA4F /* UIKit.framework in Frameworks */,
 				290DB76C1786C7030090FA4F /* Foundation.framework in Frameworks */,
@@ -153,13 +152,13 @@
 		290DB7681786C7030090FA4F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				00784A3F18DEB38400EA8A34 /* DBChooser.bundle */,
-				00784A4018DEB38400EA8A34 /* DBChooser.framework */,
+				002670131A0872C000B60A20 /* Dropbox.framework */,
+				0026700F1A08727400B60A20 /* DBChooser.bundle */,
+				002670101A08727400B60A20 /* DBChooser.framework */,
 				0071003A18DC06A500AA4237 /* libc++.dylib */,
 				0071003818DC069200AA4237 /* SystemConfiguration.framework */,
 				0071003618DC068600AA4237 /* Security.framework */,
 				0071003418DC067900AA4237 /* CFNetwork.framework */,
-				00E3D41518DBFB8600474A22 /* Dropbox.framework */,
 				29E7D70618A7737F00C113BA /* CoreImage.framework */,
 				29924624178DA617003A3D1D /* QuartzCore.framework */,
 				290DB7691786C7030090FA4F /* UIKit.framework */,
@@ -286,6 +285,7 @@
 				005D4D6A18D95088005FA5F8 /* done.png in Resources */,
 				290DB77C1786C7030090FA4F /* Default.png in Resources */,
 				290DB77E1786C7030090FA4F /* Default@2x.png in Resources */,
+				002670111A08727400B60A20 /* DBChooser.bundle in Resources */,
 				005D4D6E18D95D40005FA5F8 /* import.png in Resources */,
 				290DB7801786C7030090FA4F /* Default-568h@2x.png in Resources */,
 				290DB7831786C7030090FA4F /* MainStoryboard.storyboard in Resources */,
